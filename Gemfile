@@ -59,6 +59,9 @@ group :development, :test do
   gem "factory_bot_rails"
   gem "database_cleaner-active_record"
   gem "rubocop-rails", require: false
+  gem "rubocop", require: false
+  gem "rubocop-performance", require: false
+  gem "rubocop-rspec", require: false
   gem "rubycritic", require: false
   gem "pry-byebug"
 end
