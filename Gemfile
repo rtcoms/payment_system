@@ -52,3 +52,13 @@ group :development do
   # gem "spring"
 end
 
+
+group :development, :test do
+  gem "rspec-rails"
+  gem "simplecov"
+  gem "factory_bot_rails"
+  gem "database_cleaner-active_record"
+  gem "rubocop-rails", require: false
+  gem "rubycritic", require: false
+  gem "pry-byebug"
+end
