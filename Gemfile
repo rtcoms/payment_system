@@ -67,3 +67,5 @@ group :development, :test do
   gem "rubycritic", require: false
   gem "pry-byebug"
 end
+
+gem "cssbundling-rails", "~> 1.3"

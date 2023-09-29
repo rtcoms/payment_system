@@ -9,7 +9,25 @@
         "branches": {
         }
       },
+      "/home/rtcoms/work/payment_system/app/controllers/pages_controller.rb": {
+        "lines": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "branches": {
+        }
+      },
       "/home/rtcoms/work/payment_system/app/helpers/application_helper.rb": {
+        "lines": [
+          0,
+          0
+        ],
+        "branches": {
+        }
+      },
+      "/home/rtcoms/work/payment_system/app/helpers/pages_helper.rb": {
         "lines": [
           0,
           0
@@ -50,6 +68,6 @@
         }
       }
     },
-    "timestamp": 1695884323
+    "timestamp": 1695969326
   }
 }

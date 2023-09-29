@@ -9,4 +9,6 @@ html
     = stylesheet_link_tag "application"
     = javascript_include_tag "application", "data-turbo-track": "reload", defer: true
   body
-    = yield
+  h1
+  | From application layout
+  = yield
