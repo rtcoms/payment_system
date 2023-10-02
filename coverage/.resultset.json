@@ -1,39 +1,48 @@
 {
   "RSpec": {
     "coverage": {
-      "/home/rtcoms/work/payment_system/app/controllers/application_controller.rb": {
+      "/home/rtcoms/work/payment_system/app/models/user.rb": {
         "lines": [
-          0,
-          0
-        ],
-        "branches": {
-        }
+          1,
+          null,
+          null,
+          1,
+          null,
+          null
+        ]
       },
-      "/home/rtcoms/work/payment_system/app/controllers/pages_controller.rb": {
+      "/home/rtcoms/work/payment_system/app/models/application_record.rb": {
         "lines": [
-          0,
-          0,
-          0,
-          0
-        ],
-        "branches": {
-        }
+          1,
+          1,
+          null
+        ]
       },
       "/home/rtcoms/work/payment_system/app/helpers/application_helper.rb": {
         "lines": [
-          0,
-          0
-        ],
-        "branches": {
-        }
+          1,
+          null
+        ]
       },
       "/home/rtcoms/work/payment_system/app/helpers/pages_helper.rb": {
         "lines": [
-          0,
-          0
-        ],
-        "branches": {
-        }
+          1,
+          null
+        ]
+      },
+      "/home/rtcoms/work/payment_system/app/controllers/pages_controller.rb": {
+        "lines": [
+          1,
+          1,
+          null,
+          null
+        ]
+      },
+      "/home/rtcoms/work/payment_system/app/controllers/application_controller.rb": {
+        "lines": [
+          1,
+          null
+        ]
       },
       "/home/rtcoms/work/payment_system/app/jobs/application_job.rb": {
         "lines": [
@@ -57,17 +66,8 @@
         ],
         "branches": {
         }
-      },
-      "/home/rtcoms/work/payment_system/app/models/application_record.rb": {
-        "lines": [
-          0,
-          0,
-          0
-        ],
-        "branches": {
-        }
       }
     },
-    "timestamp": 1695969326
+    "timestamp": 1696251921
   }
 }
