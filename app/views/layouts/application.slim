@@ -21,6 +21,7 @@ html
             button.btn.btn-primary
               | Home
   main.content
+    = render partial: 'shared/flash_messages'
     h4
       | From Application l
     = yield
