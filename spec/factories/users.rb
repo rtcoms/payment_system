@@ -1,6 +1,7 @@
 FactoryBot.define do
   factory :user do
     email { Faker::Internet.email }
+    user_type { 'Merchant' }
     encrypted_password { Devise.friendly_token }
     remember_created_at { nil }
     name { Faker::Name.name }
