@@ -58,6 +58,7 @@ end
 
 
 group :development, :test do
+  gem 'faker'
   gem "rspec-rails"
   gem "simplecov"
   gem "factory_bot_rails"

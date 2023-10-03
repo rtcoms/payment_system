@@ -8,6 +8,13 @@
           null,
           1,
           null,
+          1,
+          null,
+          1,
+          1,
+          1,
+          1,
+          1,
           null
         ]
       },
@@ -21,6 +28,16 @@
       "/home/rtcoms/work/payment_system/app/helpers/application_helper.rb": {
         "lines": [
           1,
+          1,
+          null,
+          0,
+          null,
+          null,
+          null,
+          null,
+          null,
+          0,
+          null,
           null
         ]
       },
@@ -30,19 +47,23 @@
           null
         ]
       },
-      "/home/rtcoms/work/payment_system/app/controllers/pages_controller.rb": {
-        "lines": [
-          1,
-          1,
-          null,
-          null
-        ]
-      },
       "/home/rtcoms/work/payment_system/app/controllers/application_controller.rb": {
         "lines": [
-          1,
-          null
-        ]
+          0,
+          0
+        ],
+        "branches": {
+        }
+      },
+      "/home/rtcoms/work/payment_system/app/controllers/pages_controller.rb": {
+        "lines": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "branches": {
+        }
       },
       "/home/rtcoms/work/payment_system/app/jobs/application_job.rb": {
         "lines": [
@@ -68,6 +89,6 @@
         }
       }
     },
-    "timestamp": 1696251921
+    "timestamp": 1696335679
   }
 }
