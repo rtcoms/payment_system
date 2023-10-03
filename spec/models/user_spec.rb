@@ -16,6 +16,13 @@ RSpec.describe User, type: :model do
         expect(user.errors[:email]).to include("can't be blank")
       end
 
+      it 'is invalid with invalid email' do
+        user = build(:user, email: 'asd')
+
+        expect(user).to be_invalid
+        expect(user.errors[:email]).to include("is not an email")
+      end
+
       it 'is invalid with a duplicate email' do
         create(:user, email: 'test@example.com')
         user = build(:user, email: 'test@example.com')
