@@ -1,8 +1,8 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  self.inheritance_column = :vehicle_type
-  
+  self.inheritance_column = :user_type
+
   devise :database_authenticatable
 
   enum status: { active: 'active', inactive: 'inactive' }, _suffix: true, _prefix: true
