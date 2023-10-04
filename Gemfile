@@ -59,6 +59,7 @@ end
 
 group :development, :test do
   gem 'faker'
+  gem 'shoulda-matchers', require: false
   gem "rspec-rails"
   gem "simplecov"
   gem "factory_bot_rails"

@@ -27,6 +27,17 @@
           null
         ]
       },
+      "/home/rtcoms/work/payment_system/app/validators/email_validator.rb": {
+        "lines": [
+          1,
+          1,
+          32,
+          6,
+          null,
+          null,
+          null
+        ]
+      },
       "/home/rtcoms/work/payment_system/app/helpers/application_helper.rb": {
         "lines": [
           1,
@@ -57,6 +68,22 @@
       },
       "/home/rtcoms/work/payment_system/app/models/merchant.rb": {
         "lines": [
+          1,
+          null
+        ]
+      },
+      "/home/rtcoms/work/payment_system/app/models/transaction.rb": {
+        "lines": [
+          1,
+          1,
+          null,
+          1,
+          1,
+          null,
+          1,
+          1,
+          1,
+          1,
           1,
           null
         ]
@@ -99,6 +126,6 @@
         }
       }
     },
-    "timestamp": 1696354774
+    "timestamp": 1696406259
   }
 }
