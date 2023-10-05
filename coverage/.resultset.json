@@ -1,121 +1,245 @@
 {
   "RSpec": {
     "coverage": {
-      "/home/rtcoms/work/payment_system/app/controllers/application_controller.rb": {
+      "/home/rtcoms/work/payment_system/app/models/user.rb": {
         "lines": [
-          0,
-          0
-        ],
-        "branches": {
-        }
+          1,
+          null,
+          null,
+          1,
+          null,
+          1,
+          null,
+          1,
+          null,
+          1,
+          1,
+          1,
+          1,
+          1,
+          null
+        ]
       },
-      "/home/rtcoms/work/payment_system/app/controllers/merchants_controller.rb": {
+      "/home/rtcoms/work/payment_system/app/models/application_record.rb": {
         "lines": [
-          0,
-          0,
-          null,
-          null,
-          0,
-          0,
-          0,
-          null,
-          null,
-          0,
-          0,
-          null,
-          null,
-          0,
-          0,
-          0,
-          null,
-          null,
-          0,
-          0,
-          null,
-          null,
-          0,
-          0,
-          null,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          null,
-          null,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          null,
-          null,
-          0,
-          0,
-          0,
-          0,
-          null,
-          0,
-          null,
-          0,
-          0,
-          0,
-          null,
-          null,
-          0,
-          0,
-          0,
-          0
-        ],
-        "branches": {
-        }
+          1,
+          1,
+          null
+        ]
       },
-      "/home/rtcoms/work/payment_system/app/controllers/pages_controller.rb": {
+      "/home/rtcoms/work/payment_system/app/validators/email_validator.rb": {
         "lines": [
-          0,
-          0,
-          0,
-          0
-        ],
-        "branches": {
-        }
+          1,
+          1,
+          134,
+          6,
+          null,
+          null,
+          null
+        ]
       },
       "/home/rtcoms/work/payment_system/app/helpers/application_helper.rb": {
         "lines": [
+          1,
+          1,
+          null,
           0,
+          null,
+          null,
+          null,
+          null,
+          null,
           0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0
-        ],
-        "branches": {
-        }
+          null,
+          null
+        ]
       },
       "/home/rtcoms/work/payment_system/app/helpers/merchants_helper.rb": {
         "lines": [
-          0,
-          0
-        ],
-        "branches": {
-        }
+          1,
+          null
+        ]
       },
       "/home/rtcoms/work/payment_system/app/helpers/pages_helper.rb": {
         "lines": [
-          0,
-          0
-        ],
-        "branches": {
-        }
+          1,
+          null
+        ]
+      },
+      "/home/rtcoms/work/payment_system/app/models/admin.rb": {
+        "lines": [
+          1,
+          null
+        ]
+      },
+      "/home/rtcoms/work/payment_system/app/models/authorize_transaction.rb": {
+        "lines": [
+          1,
+          null
+        ]
+      },
+      "/home/rtcoms/work/payment_system/app/models/transaction.rb": {
+        "lines": [
+          1,
+          1,
+          null,
+          1,
+          1,
+          null,
+          1,
+          1,
+          1,
+          1,
+          1,
+          null
+        ]
+      },
+      "/home/rtcoms/work/payment_system/app/models/charge_transaction.rb": {
+        "lines": [
+          1,
+          null
+        ]
+      },
+      "/home/rtcoms/work/payment_system/app/models/merchant.rb": {
+        "lines": [
+          1,
+          null
+        ]
+      },
+      "/home/rtcoms/work/payment_system/app/models/refund_transaction.rb": {
+        "lines": [
+          1,
+          null
+        ]
+      },
+      "/home/rtcoms/work/payment_system/app/models/reversal_transaction.rb": {
+        "lines": [
+          1,
+          null
+        ]
+      },
+      "/home/rtcoms/work/payment_system/app/controllers/merchants_controller.rb": {
+        "lines": [
+          1,
+          1,
+          1,
+          1,
+          null,
+          null,
+          1,
+          1,
+          null,
+          null,
+          null,
+          1,
+          null,
+          null,
+          null,
+          1,
+          1,
+          null,
+          null,
+          null,
+          1,
+          null,
+          null,
+          null,
+          1,
+          4,
+          null,
+          4,
+          2,
+          null,
+          2,
+          null,
+          null,
+          null,
+          null,
+          1,
+          4,
+          2,
+          null,
+          2,
+          null,
+          null,
+          null,
+          null,
+          1,
+          2,
+          2,
+          null,
+          null,
+          1,
+          null,
+          1,
+          8,
+          null,
+          null,
+          null,
+          1,
+          14,
+          null,
+          null
+        ]
+      },
+      "/home/rtcoms/work/payment_system/app/controllers/application_controller.rb": {
+        "lines": [
+          1,
+          1,
+          10,
+          null,
+          10,
+          null,
+          null
+        ]
+      },
+      "/home/rtcoms/work/payment_system/app/models/ability.rb": {
+        "lines": [
+          null,
+          null,
+          1,
+          1,
+          null,
+          1,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          24,
+          14,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      "/home/rtcoms/work/payment_system/app/controllers/pages_controller.rb": {
+        "lines": [
+          1,
+          1,
+          null,
+          null
+        ]
       },
       "/home/rtcoms/work/payment_system/app/jobs/application_job.rb": {
         "lines": [
@@ -139,117 +263,8 @@
         ],
         "branches": {
         }
-      },
-      "/home/rtcoms/work/payment_system/app/models/admin.rb": {
-        "lines": [
-          0,
-          0
-        ],
-        "branches": {
-        }
-      },
-      "/home/rtcoms/work/payment_system/app/models/application_record.rb": {
-        "lines": [
-          0,
-          0,
-          0
-        ],
-        "branches": {
-        }
-      },
-      "/home/rtcoms/work/payment_system/app/models/authorize_transaction.rb": {
-        "lines": [
-          0,
-          0
-        ],
-        "branches": {
-        }
-      },
-      "/home/rtcoms/work/payment_system/app/models/charge_transaction.rb": {
-        "lines": [
-          0,
-          0
-        ],
-        "branches": {
-        }
-      },
-      "/home/rtcoms/work/payment_system/app/models/merchant.rb": {
-        "lines": [
-          0,
-          0
-        ],
-        "branches": {
-        }
-      },
-      "/home/rtcoms/work/payment_system/app/models/refund_transaction.rb": {
-        "lines": [
-          0,
-          0
-        ],
-        "branches": {
-        }
-      },
-      "/home/rtcoms/work/payment_system/app/models/reversal_transaction.rb": {
-        "lines": [
-          0,
-          0
-        ],
-        "branches": {
-        }
-      },
-      "/home/rtcoms/work/payment_system/app/models/transaction.rb": {
-        "lines": [
-          0,
-          0,
-          null,
-          0,
-          0,
-          null,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0
-        ],
-        "branches": {
-        }
-      },
-      "/home/rtcoms/work/payment_system/app/models/user.rb": {
-        "lines": [
-          0,
-          null,
-          null,
-          0,
-          null,
-          0,
-          null,
-          0,
-          null,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0
-        ],
-        "branches": {
-        }
-      },
-      "/home/rtcoms/work/payment_system/app/validators/email_validator.rb": {
-        "lines": [
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0
-        ],
-        "branches": {
-        }
       }
     },
-    "timestamp": 1696530441
+    "timestamp": 1696541712
   }
 }

@@ -12,124 +12,296 @@ require 'rails_helper'
 # of tools you can use to make these specs even more expressive, but we're
 # sticking to rails and rspec-rails APIs to keep things simple and stable.
 
-RSpec.describe "/merchants", type: :request do
-  
-  # This should return the minimal set of attributes required to create a valid
-  # Merchant. As you add validations to Merchant, be sure to
-  # adjust the attributes here as well.
-  let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
-  }
+RSpec.describe '/merchants', type: :request do
+  let!(:admin_user) { create(:admin) }
+  let!(:user) { create(:merchant) }
+  let!(:valid_attributes) { attributes_for(:merchant) }
+  let!(:invalid_attributes) { attributes_for(:merchant, name: nil) }
+  let!(:merchant) { create(:merchant) }
 
-  let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
-  }
+  describe 'GET /index' do
+    context 'when user is an admin' do
+      before { sign_in admin_user }
 
-  describe "GET /index" do
-    it "renders a successful response" do
-      Merchant.create! valid_attributes
-      get merchants_url
-      expect(response).to be_successful
+      it 'renders a successful response' do
+        get merchants_url
+
+        expect(response).to be_successful
+      end
+    end
+
+    context 'when user is not an admin' do
+      before { sign_in user }
+
+      it 'redirects to the root path' do
+        get merchants_url
+
+        expect(response).to redirect_to(root_path)
+      end
+    end
+
+    context 'when unauthenticated user tries to access' do
+      it 'redirects to the sign-in page' do
+        get merchants_url
+
+        expect(response).to redirect_to(new_user_session_path)
+      end
     end
   end
 
-  describe "GET /show" do
-    it "renders a successful response" do
-      merchant = Merchant.create! valid_attributes
-      get merchant_url(merchant)
-      expect(response).to be_successful
+  describe 'GET /show' do
+    context 'when user is an admin' do
+      before { sign_in admin_user }
+
+      it 'renders a successful response' do
+        get merchant_url(merchant)
+
+        expect(response).to be_successful
+      end
+    end
+
+    context 'when user is not an admin' do
+      before { sign_in user }
+
+      it 'redirects to the root path' do
+        get merchant_url(merchant)
+
+        expect(response).to redirect_to(root_path)
+      end
+    end
+
+    context 'when unauthenticated user tries to access' do
+      it 'redirects to the sign-in page' do
+        get merchant_url(merchant)
+
+        expect(response).to redirect_to(new_user_session_path)
+      end
     end
   end
 
-  describe "GET /new" do
-    it "renders a successful response" do
-      get new_merchant_url
-      expect(response).to be_successful
+  describe 'GET /new' do
+    context 'when user is an admin' do
+      before { sign_in admin_user }
+
+      it 'renders a successful response' do
+        get new_merchant_url
+
+        expect(response).to be_successful
+      end
+    end
+
+    context 'when user is not an admin' do
+      before { sign_in user }
+
+      it 'redirects to the root path' do
+        get new_merchant_url
+
+        expect(response).to redirect_to(root_path)
+      end
+    end
+
+    context 'when unauthenticated user tries to access' do
+      it 'redirects to the sign-in page' do
+        get new_merchant_url
+
+        expect(response).to redirect_to(new_user_session_path)
+      end
     end
   end
 
-  describe "GET /edit" do
-    it "renders a successful response" do
-      merchant = Merchant.create! valid_attributes
-      get edit_merchant_url(merchant)
-      expect(response).to be_successful
+  describe 'GET /edit' do
+    context 'when user is an admin' do
+      before { sign_in admin_user }
+
+      it 'renders a successful response' do
+        get edit_merchant_url(merchant)
+
+        expect(response).to be_successful
+      end
+    end
+
+    context 'when user is not an admin' do
+      before { sign_in user }
+
+      it 'redirects to the root path' do
+        get edit_merchant_url(merchant)
+
+        expect(response).to redirect_to(root_path)
+      end
+    end
+
+    context 'when unauthenticated user tries to access' do
+      it 'redirects to the sign-in page' do
+        get edit_merchant_url(merchant)
+
+        expect(response).to redirect_to(new_user_session_path)
+      end
     end
   end
 
-  describe "POST /create" do
-    context "with valid parameters" do
-      it "creates a new Merchant" do
-        expect {
+  describe 'POST /create' do
+    context 'when user is an admin' do
+      before { sign_in admin_user }
+
+      context 'with valid parameters' do
+        it 'creates a new Merchant' do
+          expect do
+            post merchants_url, params: { merchant: valid_attributes }
+          end.to change(Merchant, :count).by(1)
+        end
+
+        it 'redirects to the created merchant' do
           post merchants_url, params: { merchant: valid_attributes }
-        }.to change(Merchant, :count).by(1)
+
+          expect(response).to redirect_to(merchant_url(Merchant.last))
+        end
       end
 
-      it "redirects to the created merchant" do
-        post merchants_url, params: { merchant: valid_attributes }
-        expect(response).to redirect_to(merchant_url(Merchant.last))
-      end
-    end
+      context 'with invalid parameters' do
+        it 'does not create a new Merchant' do
+          expect do
+            post merchants_url, params: { merchant: invalid_attributes }
+          end.not_to change(Merchant, :count)
+        end
 
-    context "with invalid parameters" do
-      it "does not create a new Merchant" do
-        expect {
+        it "renders a response with 422 status (i.e., to display the 'new' template)" do
           post merchants_url, params: { merchant: invalid_attributes }
-        }.to change(Merchant, :count).by(0)
+
+          expect(response).to have_http_status(:unprocessable_entity)
+        end
+      end
+    end
+
+    context 'when user is not an admin' do
+      before { sign_in user }
+
+      it 'does not create a new Merchant' do
+        expect do
+          post merchants_url, params: { merchant: valid_attributes }
+        end.not_to change(Merchant, :count)
       end
 
-    
-      it "renders a response with 422 status (i.e. to display the 'new' template)" do
-        post merchants_url, params: { merchant: invalid_attributes }
-        expect(response).to have_http_status(:unprocessable_entity)
+      it 'redirects to the root path' do
+        post merchants_url, params: { merchant: valid_attributes }
+
+        expect(response).to redirect_to(root_path)
       end
-    
+    end
+
+    context 'when unauthenticated user tries to access' do
+      it 'redirects to the sign-in page' do
+        post merchants_url, params: { merchant: valid_attributes }
+
+        expect(response).to redirect_to(new_user_session_path)
+      end
     end
   end
 
-  describe "PATCH /update" do
-    context "with valid parameters" do
-      let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
-      }
+  describe 'PATCH /update' do
+    context 'when user is an admin' do
+      before { sign_in admin_user }
 
-      it "updates the requested merchant" do
-        merchant = Merchant.create! valid_attributes
-        patch merchant_url(merchant), params: { merchant: new_attributes }
-        merchant.reload
-        skip("Add assertions for updated state")
+      context 'with valid parameters' do
+        let!(:new_attributes) { attributes_for(:merchant, name: 'Updated Name') }
+
+        it 'updates the requested merchant' do
+          patch merchant_url(merchant), params: { merchant: new_attributes }
+          merchant.reload
+
+          expect(merchant.name).to eq('Updated Name')
+        end
+
+        it 'redirects to the merchant' do
+          patch merchant_url(merchant), params: { merchant: new_attributes }
+
+          expect(response).to redirect_to(merchant_url(merchant))
+        end
       end
 
-      it "redirects to the merchant" do
-        merchant = Merchant.create! valid_attributes
-        patch merchant_url(merchant), params: { merchant: new_attributes }
-        merchant.reload
-        expect(response).to redirect_to(merchant_url(merchant))
+      context 'with invalid parameters' do
+        it 'does not update the requested merchant' do
+          patch merchant_url(merchant), params: { merchant: invalid_attributes }
+          merchant.reload
+
+          expect(merchant.name).not_to eq(nil)
+        end
+
+        it "renders a response with 422 status (i.e., to display the 'edit' template)" do
+          patch merchant_url(merchant), params: { merchant: invalid_attributes }
+
+          expect(response).to have_http_status(:unprocessable_entity)
+        end
       end
     end
 
-    context "with invalid parameters" do
-    
-      it "renders a response with 422 status (i.e. to display the 'edit' template)" do
-        merchant = Merchant.create! valid_attributes
-        patch merchant_url(merchant), params: { merchant: invalid_attributes }
-        expect(response).to have_http_status(:unprocessable_entity)
+    context 'when user is not an admin' do
+      before { sign_in user }
+
+      it 'does not update the requested merchant' do
+        old_name = merchant.name
+        new_attributes = attributes_for(:merchant, name: 'Updated Name')
+        patch merchant_url(merchant), params: { merchant: new_attributes }
+        merchant.reload
+
+        expect(merchant.name).to eq(old_name)
       end
-    
+
+      it 'redirects to the root path' do
+        patch merchant_url(merchant), params: { merchant: valid_attributes }
+
+        expect(response).to redirect_to(root_path)
+      end
+    end
+
+    context 'when unauthenticated user tries to access' do
+      it 'redirects to the sign-in page' do
+        patch merchant_url(merchant), params: { merchant: valid_attributes }
+
+        expect(response).to redirect_to(new_user_session_path)
+      end
     end
   end
 
-  describe "DELETE /destroy" do
-    it "destroys the requested merchant" do
-      merchant = Merchant.create! valid_attributes
-      expect {
+  describe 'DELETE /destroy' do
+    context 'when user is an admin' do
+      before { sign_in admin_user }
+
+      it 'destroys the requested merchant' do
+        merchant_to_delete = create(:merchant)
+        expect do
+          delete merchant_url(merchant_to_delete)
+        end.to change(Merchant, :count).by(-1)
+      end
+
+      it 'redirects to the merchants list' do
         delete merchant_url(merchant)
-      }.to change(Merchant, :count).by(-1)
+
+        expect(response).to redirect_to(merchants_url)
+      end
     end
 
-    it "redirects to the merchants list" do
-      merchant = Merchant.create! valid_attributes
-      delete merchant_url(merchant)
-      expect(response).to redirect_to(merchants_url)
+    context 'when user is not an admin' do
+      before { sign_in user }
+
+      it 'does not destroy the requested merchant' do
+        expect do
+          delete merchant_url(merchant)
+        end.not_to change(Merchant, :count)
+      end
+
+      it 'redirects to the root path' do
+        delete merchant_url(merchant)
+
+        expect(response).to redirect_to(root_path)
+      end
+    end
+
+    context 'when unauthenticated user tries to access' do
+      it 'redirects to the sign-in page' do
+        delete merchant_url(merchant)
+
+        expect(response).to redirect_to(new_user_session_path)
+      end
     end
   end
 end

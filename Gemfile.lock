@@ -89,6 +89,7 @@ GEM
       msgpack (~> 1.2)
     builder (3.2.4)
     byebug (11.1.3)
+    cancancan (3.5.0)
     coderay (1.1.3)
     coercible (1.0.0)
       descendants_tracker (~> 0.0.1)
@@ -293,6 +294,10 @@ GEM
       rubocop (~> 1.33)
       rubocop-capybara (~> 2.17)
       rubocop-factory_bot (~> 2.22)
+    ruby-lsp (0.11.1)
+      language_server-protocol (~> 3.17.0)
+      sorbet-runtime (>= 0.5.5685)
+      yarp (>= 0.12, < 0.13)
     ruby-progressbar (1.13.0)
     ruby2_keywords (0.0.5)
     ruby_parser (3.20.3)
@@ -320,6 +325,7 @@ GEM
     slim (5.1.1)
       temple (~> 0.10.0)
       tilt (>= 2.1.0)
+    sorbet-runtime (0.5.11061)
     sprockets (4.2.1)
       concurrent-ruby (~> 1.0)
       rack (>= 2.2.4, < 4)
@@ -352,6 +358,7 @@ GEM
     websocket-driver (0.7.6)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
+    yarp (0.12.0)
     zeitwerk (2.6.12)
 
 PLATFORMS
@@ -359,6 +366,7 @@ PLATFORMS
 
 DEPENDENCIES
   bootsnap
+  cancancan
   cssbundling-rails (~> 1.3)
   database_cleaner-active_record
   debug
@@ -375,6 +383,7 @@ DEPENDENCIES
   rubocop-performance
   rubocop-rails
   rubocop-rspec
+  ruby-lsp
   rubycritic
   shoulda-matchers
   simplecov
