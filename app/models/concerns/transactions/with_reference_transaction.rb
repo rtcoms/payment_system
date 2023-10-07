@@ -4,7 +4,7 @@ module Transactions
     extend ActiveSupport::Concern
 
     included do
-      belongs_to :reference_transaction, polymorphic: true, required: true
+      belongs_to :reference_transaction, class_name: 'Transaction'
 
       validates :reference_transaction, presence: true
       validate :validate_reference_transaction, if: -> { reference_transaction.present? }

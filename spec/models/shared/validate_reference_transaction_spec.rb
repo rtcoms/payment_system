@@ -1,6 +1,6 @@
 # spec/support/shared_examples/validate_reference_transaction_shared_example.rb
 RSpec.shared_examples 'validate_reference_transaction' do
-  it { should belong_to(:reference_transaction) }
+  it { should belong_to(:reference_transaction).class_name('Transaction') }
   it { should validate_presence_of(:reference_transaction) }
 
   it 'validates reference_transaction on create if reference_transaction is present' do
