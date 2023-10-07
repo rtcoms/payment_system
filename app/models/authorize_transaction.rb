@@ -1,2 +1,3 @@
 class AuthorizeTransaction < Transaction
+  
 end

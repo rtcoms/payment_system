@@ -1,9 +1,9 @@
 class CreateTransactions < ActiveRecord::Migration[7.1]
   def change
-    create_enum :transaction_status, ['approved', 'reversed', 'refunded', 'error']
+    create_enum :transaction_status, %w[approved reversed refunded error]
 
     create_table :transactions do |t|
-      t.uuid :uuid, default: -> { 'gen_random_uuid()' }, null: false
+      t.uuid :uuid, default: -> { 'gen_random_uuid()' }, null: false, unique: true
       t.decimal :amount, precision: 10, scale: 2, null: false
       t.enum :status, enum_type: 'transaction_status', default: 'approved', null: false
       t.string :customer_email, null: false
