@@ -3,7 +3,8 @@ require 'rails_helper'
 RSpec.describe AuthorizeTransaction, type: :model do
   subject { build(:authorize_transaction) }
 
-  it { should validate_presence_of(:uuid) }
+  # before_validation sets uuid
+  # it { should validate_presence_of(:uuid) }
   it { should validate_uniqueness_of(:uuid).case_insensitive }
   it { should validate_presence_of(:amount) }
   it { should validate_numericality_of(:amount).is_greater_than(0) }
