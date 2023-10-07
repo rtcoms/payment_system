@@ -1,5 +1,5 @@
-FactoryBot.define do
-  factory :reversal_transaction do
+# FactoryBot.define do
+#   factory :reversal_transaction do
     
-  end
-end
+#   end
+# end

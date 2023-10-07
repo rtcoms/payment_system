@@ -4,6 +4,11 @@ RSpec.describe Transaction, type: :model do
   subject { build(:transaction) }
   let!(:transaction_statuses) { { approved: 'approved', reversed: 'reversed', refunded: 'refunded', error: 'error' } }
 
+  describe 'associations' do
+    it { should belong_to(:merchant) }
+    it { should belong_to(:reference_transaction).class_name('Transaction').optional }
+  end
+
   describe 'validations' do
     it { should validate_presence_of(:uuid) }
     it { should validate_uniqueness_of(:uuid).case_insensitive }

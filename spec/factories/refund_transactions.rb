@@ -1,5 +1,5 @@
-FactoryBot.define do
-  factory :refund_transaction do
+# FactoryBot.define do
+#   factory :refund_transaction do
     
-  end
-end
+#   end
+# end

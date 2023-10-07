@@ -1,10 +1,53 @@
+# spec/factories/transactions.rb
 FactoryBot.define do
   factory :transaction do
     uuid { SecureRandom.uuid }
-    amount { 100.00 }
+    amount { 100.0 }
     status { 'approved' }
-    customer_email { Faker::Internet.email }
-    customer_phone { Faker::PhoneNumber.phone_number }
-    merchant { association :merchant } # Assuming you have a Merchant factory
+    customer_email { 'customer@example.com' }
+
+    association :merchant, factory: :merchant
+  end
+
+  factory :authorize_transaction, parent: :transaction, class: 'AuthorizeTransaction' do
+    # Additional attributes specific to AuthorizeTransaction if any
+    transaction_type { 'AuthorizeTransaction' }
+    association :merchant, factory: :merchant
+
+    trait :with_reference_transaction do
+      association :reference_transaction, factory: :authorize_transaction
+    end
+  end
+
+  factory :charge_transaction, parent: :transaction, class: 'ChargeTransaction' do
+    # Additional attributes specific to ChargeTransaction if any
+    transaction_type { 'ChargeTransaction' }
+
+    association :merchant, factory: :merchant
+    association :reference_transaction, factory: :authorize_transaction
+
+    trait :with_reference_transaction do
+      association :reference_transaction, factory: :authorize_transaction
+    end
+  end
+
+  factory :refund_transaction, parent: :transaction, class: 'RefundTransaction' do
+    # Additional attributes specific to RefundTransaction if any
+    association :merchant, factory: :merchant
+    association :reference_transaction, factory: :charge_transaction
+
+    trait :with_reference_transaction do
+      association :reference_transaction, factory: :charge_transaction
+    end
+  end
+
+  factory :reversal_transaction, parent: :transaction, class: 'ReversalTransaction' do
+    # Additional attributes specific to ReversalTransaction if any
+    association :merchant, factory: :merchant
+    association :reference_transaction, factory: :authorize_transaction
+
+    trait :with_reference_transaction do
+      association :reference_transaction, factory: :authorize_transaction
+    end
   end
 end

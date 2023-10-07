@@ -1,5 +1,5 @@
-FactoryBot.define do
-  factory :authorize_transaction do
+# FactoryBot.define do
+#   factory :authorize_transaction do
     
-  end
-end
+#   end
+# end
