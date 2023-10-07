@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_10_07_103835) do
+ActiveRecord::Schema[7.1].define(version: 2023_10_07_184512) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -19,9 +19,17 @@ ActiveRecord::Schema[7.1].define(version: 2023_10_07_103835) do
   create_enum "transaction_status", ["approved", "reversed", "refunded", "error"]
   create_enum "user_status", ["active", "inactive"]
 
+  create_table "payments", force: :cascade do |t|
+    t.decimal "amount"
+    t.string "monetizable_type", null: false
+    t.bigint "monetizable_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["monetizable_type", "monetizable_id"], name: "index_payments_on_monetizable"
+  end
+
   create_table "transactions", force: :cascade do |t|
     t.uuid "uuid", default: -> { "gen_random_uuid()" }, null: false
-    t.decimal "amount", precision: 10, scale: 2, null: false
     t.enum "status", default: "approved", null: false, enum_type: "transaction_status"
     t.string "customer_email", null: false
     t.string "customer_phone"

@@ -8,14 +8,13 @@ RSpec.describe Transaction, type: :model do
     it { should belong_to(:merchant) }
     it { should belong_to(:reference_transaction).class_name('Transaction').optional }
     it { should have_many(:child_transactions).class_name('Transaction').with_foreign_key('reference_transaction_id') }
+    it { should have_one(:payment).dependent(:destroy).optional }
   end
 
   describe 'validations' do
     # uuid is set in before_validation
     # it { should validate_presence_of(:uuid) }
     it { should validate_uniqueness_of(:uuid).case_insensitive }
-    it { should validate_presence_of(:amount) }
-    it { should validate_numericality_of(:amount).is_greater_than(0) }
     it { should validate_presence_of(:status) }
     it { should define_enum_for(:status).with_values(transaction_statuses).backed_by_column_of_type(:enum) }
     it { should validate_presence_of(:customer_email) }
@@ -27,7 +26,7 @@ RSpec.describe Transaction, type: :model do
   describe 'associations' do
     it 'associates with a merchant' do
       merchant = create(:merchant)
-      transaction = create(:transaction, merchant:)
+      transaction = create(:transaction, merchant: merchant)
 
       expect(transaction.merchant).to eq(merchant)
     end

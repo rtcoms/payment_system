@@ -6,10 +6,10 @@ class Transaction < ApplicationRecord
   belongs_to :merchant
   belongs_to :reference_transaction, class_name: 'Transaction', optional: true
   has_many :child_transactions, class_name: 'Transaction', foreign_key: 'reference_transaction_id'
+  has_one :payment, class_name: 'Payment', as: :monetizable, dependent: :destroy
 
   validates :uuid, presence: true, uniqueness: { case_sensitive: false }
   validates :transaction_type, presence: true
-  validates :amount, presence: true, numericality: { greater_than: 0 }
   validates :status, presence: true, inclusion: { in: statuses.keys }
   validates :customer_email, presence: true, email: true
   validates :merchant, presence: true

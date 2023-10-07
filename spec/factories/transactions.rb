@@ -2,11 +2,22 @@
 FactoryBot.define do
   factory :transaction do
     uuid { SecureRandom.uuid }
-    amount { 100.0 }
     status { 'approved' }
     customer_email { 'customer@example.com' }
 
+    transient do
+      amount { 100.00 }
+    end
+
     association :merchant, factory: :merchant
+
+    after(:build) do |transaction, eval|
+      transaction.payment = build(:payment, amount: eval.amount, monetizable: transaction)
+    end
+  
+    after(:create) do |transaction|
+      transaction.payment.save!
+    end
   end
 
   factory :authorize_transaction, parent: :transaction, class: 'AuthorizeTransaction' do

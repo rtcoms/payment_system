@@ -1,6 +1,8 @@
 class RefundTransaction < Transaction
   include Transactions::WithReferenceTransaction
 
+  has_one :payment, class_name: 'Payment', as: :monetizable, dependent: :destroy, required: true
+
   private
 
   def valid_reference_transaction?
