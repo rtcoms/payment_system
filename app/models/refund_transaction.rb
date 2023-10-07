@@ -1,7 +1,11 @@
 class RefundTransaction < Transaction
   include Transactions::WithReferenceTransaction
 
+  PERMITTED_STATUSES = %w[approved error].freeze
+
   has_one :payment, class_name: 'Payment', as: :monetizable, dependent: :destroy, required: true
+
+  validates :status, presence: true, inclusion: { in: PERMITTED_STATUSES }
 
   private
 
@@ -11,5 +15,10 @@ class RefundTransaction < Transaction
 
   def valid_reference_transaction_type
     ChargeTransaction
+  end
+
+  def valid_statuses_for_reference_transaction
+    # ChargeTransaction would be reference transactino here
+    %w[approved]
   end
 end

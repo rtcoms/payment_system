@@ -13,4 +13,15 @@ RSpec.describe AuthorizeTransaction, type: :model do
   it { should validate_presence_of(:merchant) }
 
   it { should have_one(:payment).dependent(:destroy).required }
+
+  describe 'validations' do
+    context 'permitted statuses' do
+      it 'is invalid if reference_transaction is not in valid state' do
+        transaction = build(:authorize_transaction, status: 'error')
+
+        expect(transaction).not_to be_valid
+        expect(transaction.errors[:status]).to include('is not included in the list')
+      end
+    end
+  end
 end

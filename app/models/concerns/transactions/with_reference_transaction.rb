@@ -8,7 +8,8 @@ module Transactions
 
       validates :reference_transaction, presence: true
       validate :validate_reference_transaction, if: -> { reference_transaction.present? }
-      validate :validate_reference_transaction_approved, on: :create, if: -> { reference_transaction.present? }
+      # validate :validate_reference_transaction_approved, on: :create, if: -> { reference_transaction.present? }
+      validate :valicate_reference_transaction_status, on: :create, if: -> { reference_transaction.present? }
     end
 
     private
@@ -22,7 +23,13 @@ module Transactions
     def validate_reference_transaction_approved
       return if reference_transaction.approved?
 
-      errors.add(:reference_transaction, 'reference transaction must be in approved state')
+      errors.add(:reference_transaction, 'must be in approved state')
+    end
+
+    def valicate_reference_transaction_status
+      return if valid_statuses_for_reference_transaction.include?(reference_transaction.status)
+
+      errors.add(:reference_transaction, "must be in one of the following state: #{valid_statuses_for_reference_transaction.sort.join(',')}")
     end
 
     def valid_reference_transaction?
@@ -32,7 +39,12 @@ module Transactions
     end
 
     def valid_reference_transaction_type
-      aise NotImplementedError, 'Subclasses must implement valid_reference_transaction?'
+      raise NotImplementedError, 'Subclasses must implement valid_reference_transaction_type'
+    end
+
+    def valid_statuses_for_reference_transaction
+      # Transaction.statuses[:approved]
+      raise NotImplementedError, 'Subclasses must implement valid_statuses_for_reference_transaction?'
     end
   end
 end
