@@ -1,5 +1,5 @@
 class CreateAuthorizeTransactionService
   include Interactor::Organizer
 
-  organize ValidateAuthorizeTransactionParams
+  organize ValidateAuthorizeTransactionParams, ValidateMerchant, CreateTransaction
 end
