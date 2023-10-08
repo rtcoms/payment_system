@@ -25,7 +25,7 @@ RSpec.describe ChargeTransaction, type: :model do
         transaction = build(:charge_transaction, reference_transaction: create(:authorize_transaction, status: 'reversed'))
 
         expect(transaction).not_to be_valid
-        expect(transaction.errors[:reference_transaction]).to include('must be in one of the following state: approved')
+        expect(transaction.errors[:reference_transaction]).to include('must be approved or refunded')
       end
     end
   end

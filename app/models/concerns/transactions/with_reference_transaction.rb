@@ -20,16 +20,10 @@ module Transactions
       errors.add(:reference_transaction, "must be of type #{reference_transaction.valid_reference_transaction_type}")
     end
 
-    def validate_reference_transaction_approved
-      return if reference_transaction.approved?
-
-      errors.add(:reference_transaction, 'must be in approved state')
-    end
-
     def valicate_reference_transaction_status
       return if valid_statuses_for_reference_transaction.include?(reference_transaction.status)
 
-      errors.add(:reference_transaction, "must be in one of the following state: #{valid_statuses_for_reference_transaction.sort.join(',')}")
+      errors.add(:reference_transaction, "must be approved or refunded")
     end
 
     def valid_reference_transaction?

@@ -24,7 +24,7 @@ RSpec.describe RefundTransaction, type: :model do
         transaction = build(:refund_transaction, reference_transaction: create(:charge_transaction, status: 'refunded'))
 
         expect(transaction).not_to be_valid
-        expect(transaction.errors[:reference_transaction]).to include('must be in one of the following state: approved')
+        expect(transaction.errors[:reference_transaction]).to include('must be approved or refunded')
       end
     end
   end

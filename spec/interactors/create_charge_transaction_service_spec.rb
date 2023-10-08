@@ -52,7 +52,7 @@ RSpec.describe CreateChargeTransactionService do
       end
     end
 
-    context 'when reference transaction is not present' do
+    context 'when reference authorize transaction is not present' do
       let(:invalid_params) do
         {
           merchant_id: active_merchant.id,
@@ -71,6 +71,36 @@ RSpec.describe CreateChargeTransactionService do
 
         expect(result).to be_failure
         expect(result.message).to include("Reference transaction can't be blank")
+      end
+    end
+
+    context 'when reference transaction is not in approved state' do
+      let!(:reversal_transaction_params) do
+        {
+            merchant_id: active_merchant.id,
+            reference_transaction_id: authorize_transaction.id,
+            customer_email: 'test@example.com',
+            customer_phone: '1234567890'
+        }
+      end
+
+      let!(:charge_transaction_params) do
+        {
+            merchant_id: active_merchant.id,
+            reference_transaction_id: authorize_transaction.id,
+            customer_email: 'test@example.com',
+            customer_phone: '1234567890',
+            txn_amount: 100
+        }
+      end
+
+      it 'save transaction with error status' do
+        CreateReversalTransactionService.call(transaction_params: reversal_transaction_params, transaction_type: :reversal_transaction)
+
+        result = described_class.call(transaction_params: charge_transaction_params, transaction_type: :charge_transaction)
+
+        expect(result).to be_success
+        expect(result.form.model.status).to eq('error')
       end
     end
   end

@@ -1,5 +1,8 @@
 class CreateChargeTransactionService
   include Interactor::Organizer
 
-  organize ValidateTransactionParams, ValidateMerchant, CreateTransaction, RecalculateMerchantAmount
+  organize ValidateTransactionParams,
+           ValidateMerchant,
+           CreateTransaction,
+           RecalculateMerchantAmount
 end
