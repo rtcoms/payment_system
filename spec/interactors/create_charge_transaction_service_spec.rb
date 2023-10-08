@@ -23,7 +23,7 @@ RSpec.describe CreateChargeTransactionService do
         expect do
           described_class.call(transaction_params: valid_params, transaction_type: :charge_transaction)
         end.to change(ChargeTransaction, :count).by(1)
-        # expect(result).to be_success
+        expect(active_merchant.reload.total_transaction_sum.to_f).to eq(valid_params[:txn_amount].to_f)
       end
 
       # it 'calls the interactors' do
