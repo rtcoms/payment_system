@@ -9,7 +9,7 @@ RSpec.describe CreateAuthorizeTransactionService do
     context 'when valid parameters are provided' do
       let!(:valid_params) do
         {
-          authorize_transaction_params: {
+          transaction_params: {
             merchant_id: active_merchant.id,
             customer_email: 'test@example.com',
             customer_phone: '1234567890',
@@ -36,7 +36,7 @@ RSpec.describe CreateAuthorizeTransactionService do
     context 'when invalid parameters are provided' do
       let(:invalid_params) do
         {
-          authorize_transaction_params: {
+          transaction_params: {
             merchant_id: active_merchant.id,
             customer_email: 'asd@asd.com',
             customer_phone: '1234567890',
@@ -56,7 +56,7 @@ RSpec.describe CreateAuthorizeTransactionService do
     context 'when merchant is not present' do
       let(:invalid_params) do
         {
-          authorize_transaction_params: {
+          transaction_params: {
             merchant_id: 1,
             customer_email: 'test@example.com',
             customer_phone: '1234567890',
