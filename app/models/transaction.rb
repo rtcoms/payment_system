@@ -6,6 +6,8 @@ class Transaction < ApplicationRecord
   belongs_to :merchant
   belongs_to :reference_transaction, class_name: 'Transaction', optional: true
   has_many :child_transactions, class_name: 'Transaction', foreign_key: 'reference_transaction_id'
+  has_many :child_charge_transactions, -> { where(transaction_type: 'ChargeTransaction') }, class_name: 'Transaction', foreign_key: 'reference_transaction_id'
+
   has_one :payment, class_name: 'Payment', as: :monetizable, dependent: :destroy
 
   validates :uuid, presence: true, uniqueness: { case_sensitive: false }
@@ -15,6 +17,8 @@ class Transaction < ApplicationRecord
   validates :merchant, presence: true
 
   before_validation :generate_uuid, on: :create
+
+  delegate :amount, to: :payment
 
   private
 

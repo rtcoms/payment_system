@@ -29,4 +29,34 @@ RSpec.describe ChargeTransaction, type: :model do
       end
     end
   end
+
+  describe 'validate_amount_within_authoeized_limit' do
+    
+
+    context 'when the charged amount is within the authorized limit' do
+      let!(:merchant) { create(:merchant) }
+      let!(:authorize_transaction) { create(:authorize_transaction, amount: 100) }
+      let!(:charge_transaction) { create(:charge_transaction, reference_transaction: authorize_transaction, amount: 50) }
+
+      it 'passes validation' do
+        charge_transaction.valid?
+        expect(charge_transaction.errors[:base]).to be_empty
+      end
+    end
+
+    context 'when the charged amount exceeds the authorized limit' do
+      let!(:merchant) { create(:merchant) }
+      let!(:authorize_transaction) { create(:authorize_transaction, amount: 100) }
+      let!(:charge_transaction1) { create(:charge_transaction, reference_transaction: authorize_transaction, amount: 25) }
+      let!(:charge_transaction2) { create(:charge_transaction, reference_transaction: authorize_transaction, amount: 25) }
+
+      it 'fails validation' do
+        invalid_charge_txn = build(:charge_transaction, reference_transaction: authorize_transaction, amount: 60)
+
+        invalid_charge_txn.valid?
+
+        expect(invalid_charge_txn.errors[:base]).to include('Amount exceeding the authorized amount')
+      end
+    end
+  end
 end
