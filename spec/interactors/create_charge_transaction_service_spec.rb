@@ -5,7 +5,7 @@ RSpec.describe CreateChargeTransactionService do
   describe '.call' do
     let!(:active_merchant) { create(:merchant, status: :active) }
     let!(:inactive_merchant) { create(:merchant, status: :inactive) }
-    let!(:authorize_transaction) { create(:authorize_transaction, amount: 100) }
+    let!(:authorize_transaction) { create(:authorize_transaction, amount: 100, merchant: active_merchant) }
 
     context 'when valid parameters are provided' do
       let!(:valid_params) do

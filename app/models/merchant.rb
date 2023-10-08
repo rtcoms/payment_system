@@ -3,10 +3,11 @@ class Merchant < User
   has_many :transactions
 
   def total_charges_collected
-    approved_charge_transaction = transactions.approved.where(transaction_type: 'ChargeTransaction')
+    approved_authorize_transactions = transactions.approved.where(transaction_type: 'AuthorizeTransaction')
+    approved_charge_transactions = transactions.approved.where(transaction_type: 'ChargeTransaction', reference_transaction_id: approved_authorize_transactions.ids)
     charges_collected = Payment.where(
       monetizable_type: 'Transaction',
-      monetizable_id: approved_charge_transaction.ids
+      monetizable_id: approved_charge_transactions.ids
     ).pluck(:amount).sum
   end
 
