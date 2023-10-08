@@ -3,9 +3,11 @@ class RefundTransaction < Transaction
 
   PERMITTED_STATUSES = %w[approved error].freeze
 
-  has_one :payment, class_name: 'Payment', as: :monetizable, dependent: :destroy, required: true
+  has_one :payment, class_name: 'Payment', as: :monetizable, dependent: :destroy, required: false
 
   validates :status, presence: true, inclusion: { in: PERMITTED_STATUSES }
+
+  after_commit :create_payment, on: :create, if: -> { !payment.present? && txn_amount.present? }
 
   private
 
@@ -20,5 +22,9 @@ class RefundTransaction < Transaction
   def valid_statuses_for_reference_transaction
     # ChargeTransaction would be reference transactino here
     %w[approved]
+  end
+
+  def create_payment
+    Payment.create!(amount: txn_amount, monetizable: self)
   end
 end

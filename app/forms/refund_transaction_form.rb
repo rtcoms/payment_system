@@ -1,9 +1,10 @@
 class RefundTransactionForm < Reform::Form
   property :reference_transaction_id
-  property :payment do
-    property :amount
+  property :merchant_id
+  property :customer_email
+  property :customer_phone
+  property :txn_amount
 
-    validates :amount, presence: true
-  end
   validates :reference_transaction_id, presence: true
+  validates :txn_amount, presence: true
 end

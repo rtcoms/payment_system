@@ -9,7 +9,7 @@ class ChargeTransaction < Transaction
   # validates :payment, presence: true
   validate :validate_amount_within_authoeized_limit, on: :create, if: -> { reference_transaction.present? && payment.present? }
 
-  after_commit :create_payment, on: :create, unless: -> { payment.present? && txn_amount.present? }
+  after_commit :create_payment, on: :create, if: -> { !payment.present? && txn_amount.present? }
 
   private
 

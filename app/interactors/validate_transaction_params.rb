@@ -4,10 +4,6 @@ class ValidateTransactionParams
   def call
     transaction_params = context.transaction_params
     context.form = send("#{context.transaction_type}_form")
-
-    if context.transaction_type != :authorize_transaction
-      transaction_params.merge!({txn_amount: context.transaction_params[:txn_amount]})
-    end
     
     unless context.form.validate(transaction_params)
       context.fail!(message: context.form.errors.full_messages.join(', '))
