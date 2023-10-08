@@ -35,7 +35,7 @@ RSpec.describe Transaction, type: :model do
       authorize_transaction = create(:authorize_transaction) 
       charge_transaction1 = create(:charge_transaction, reference_transaction: authorize_transaction, amount: 1)
       charge_transaction2 = create(:charge_transaction, reference_transaction: authorize_transaction, amount: 2)
-      refund_transaction = create(:refund_transaction, reference_transaction: charge_transaction1)
+      refund_transaction = create(:refund_transaction, reference_transaction: charge_transaction1, amount: charge_transaction1.amount)
 
       expect(authorize_transaction.reference_transaction).to eq(nil)
       expect(charge_transaction1.reference_transaction).to eq(authorize_transaction)
