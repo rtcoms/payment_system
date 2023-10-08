@@ -1,9 +1,12 @@
 Rails.application.routes.draw do
-  resources :merchants
+  # Defines the root path route ("/")
+  root 'pages#home'
+
   devise_for :users
+  resources :merchants
+  resources :transactions, only: [:index, :new, :create], path_names: {new: 'new/:transaction_type' }
   get 'pages/home'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
-  # Defines the root path route ("/")
-  root 'pages#home'
+  
 end
