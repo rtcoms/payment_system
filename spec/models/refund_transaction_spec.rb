@@ -5,7 +5,7 @@ RSpec.describe RefundTransaction, type: :model do
   subject { build(:refund_transaction) }
 
   it { should belong_to(:merchant) }
-  it { should have_one(:payment).dependent(:destroy).required }
+  it { should have_one(:payment).dependent(:destroy).optional }
 
   it_behaves_like 'validate_reference_transaction'
 

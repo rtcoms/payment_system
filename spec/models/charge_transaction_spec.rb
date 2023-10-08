@@ -5,7 +5,7 @@ RSpec.describe ChargeTransaction, type: :model do
   subject { build(:charge_transaction) }
 
   it { should belong_to(:merchant) }
-  it { should have_one(:payment).dependent(:destroy).required }
+  it { should have_one(:payment).dependent(:destroy).optional }
   # it { should validate_inclusion_of(:status).in_array(%w[approved refunded error]).with_message('is not included in the list') }
 
   it_behaves_like 'validate_reference_transaction'
