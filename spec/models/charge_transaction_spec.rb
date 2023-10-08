@@ -31,8 +31,6 @@ RSpec.describe ChargeTransaction, type: :model do
   end
 
   describe 'validate_amount_within_authoeized_limit' do
-    
-
     context 'when the charged amount is within the authorized limit' do
       let!(:merchant) { create(:merchant) }
       let!(:authorize_transaction) { create(:authorize_transaction, amount: 100) }

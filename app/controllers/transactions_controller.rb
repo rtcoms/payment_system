@@ -13,9 +13,6 @@ class TransactionsController < ApplicationController
   end
 
   def create
-    params
-    binding.pry
-
     redirect_to root_path
   end
 
