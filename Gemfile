@@ -44,6 +44,7 @@ gem 'cancancan'
 gem 'interactor'
 gem 'reform-rails'
 gem 'discard', '~> 1.2'
+gem 'good_job'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
