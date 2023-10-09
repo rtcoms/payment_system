@@ -33,5 +33,15 @@ module PaymentSystem
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+    config.active_job.queue_adapter = :good_job
+    ActiveJob::Base.queue_adapter = :good_job
+
+    config.good_job.enable_cron = true
+    config.good_job.cron = {
+      transaction_cleaner_schedule: {
+        cron: "0 * * * *",
+        class: "TransactionCleanerJob"
+      }
+    }
   end
 end
