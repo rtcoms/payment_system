@@ -1,4 +1,6 @@
 class Transaction < ApplicationRecord
+  include Discard::Model
+  
   self.inheritance_column = :transaction_type
   attr_accessor :txn_amount
 
