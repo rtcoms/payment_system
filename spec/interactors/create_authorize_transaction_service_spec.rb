@@ -12,7 +12,7 @@ RSpec.describe CreateAuthorizeTransactionService do
             merchant_id: active_merchant.id,
             customer_email: 'test@example.com',
             customer_phone: '1234567890',
-            payment: { amount: 100 }
+            txn_amount: 100
         }
       end
 
@@ -37,7 +37,7 @@ RSpec.describe CreateAuthorizeTransactionService do
           merchant_id: active_merchant.id,
           customer_email: 'asd@asd.com',
           customer_phone: '1234567890',
-          payment: { amount: nil }
+          txn_amount: nil
         }
       end
 
@@ -45,7 +45,7 @@ RSpec.describe CreateAuthorizeTransactionService do
         result = described_class.call(transaction_params: invalid_params, transaction_type: :authorize_transaction)
 
         expect(result).to be_failure
-        expect(result.message).to include("Amount can't be blank")
+        expect(result.message).to include("Txn amount can't be blank")
       end
     end
 
@@ -55,7 +55,7 @@ RSpec.describe CreateAuthorizeTransactionService do
           merchant_id: 1,
           customer_email: 'test@example.com',
           customer_phone: '1234567890',
-          payment: { amount: 100 }
+          txn_amount: 100
         }
       end
 

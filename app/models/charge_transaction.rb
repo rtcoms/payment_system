@@ -1,5 +1,6 @@
 class ChargeTransaction < Transaction
   include Transactions::WithReferenceTransaction
+  include Transactions::WithPaymentInfo
 
   PERMITTED_STATUSES = %w[approved refunded error].freeze
 
@@ -9,7 +10,7 @@ class ChargeTransaction < Transaction
   # validates :payment, presence: true
   validate :validate_amount_within_authoeized_limit, on: :create, if: -> { reference_transaction.present? && payment.present? }
 
-  after_commit :create_payment, on: :create, if: -> { !payment.present? && txn_amount.present? }
+  # after_commit :create_payment, on: :create, if: -> { !payment.present? && txn_amount.present? }
 
   private
 
@@ -37,10 +38,12 @@ class ChargeTransaction < Transaction
     return if self.amount <= (authorized_amount - current_charged_amount)
 
     errors.add(:base, 'Amount exceeding the authorized amount')
-
   end
 
-  def create_payment
-    Payment.create!(amount: txn_amount, monetizable: self)
-  end
+  private
+
+  # def create_payment
+  #   binding.pry
+  #   Payment.create!(amount: txn_amount, monetizable: self)
+  # end
 end
