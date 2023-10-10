@@ -43,5 +43,9 @@ module PaymentSystem
         class: "TransactionCleanerJob"
       }
     }
+
+    api_settings = YAML.load_file(Rails.root.join('config', 'api_config.yml'))
+
+    config.api_settings = api_settings
   end
 end
