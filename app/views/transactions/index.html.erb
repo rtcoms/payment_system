@@ -4,6 +4,7 @@
   <thead>
     <tr>
       <th>ID</th>
+      <th>Type</th>
       <th>Merchant ID</th>
       <th>Status</th>
       <th>Customer Email</th>
@@ -14,6 +15,7 @@
     <% @transactions.each do |transaction| %>
       <tr>
         <td><%= transaction.id %></td>
+        <td><%= transaction.transaction_type %></td>
         <td><%= transaction.merchant.name %></td>
         <td><%= transaction.status %></td>
         <td><%= transaction.customer_email %></td>

@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
   devise_for :users
   resources :merchants
-  resources :transactions, only: [:index, :new, :create], path_names: {new: 'new/:transaction_type' }
+  resources :transactions, only: [:index, :new, :create], path_names: {new: 'new/:transaction_type', create: 'new/:transaction_type' }
   get 'pages/home'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
