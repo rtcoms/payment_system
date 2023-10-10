@@ -30,19 +30,7 @@ class Api::TransactionsController < ApplicationController
   end
 
   def transaction_params_method
-    params.permit(
-      common_params,
-      case params[:transaction_type]
-      when 'authorize'
-        authorize_params
-      when 'charge'
-        charge_params
-      when 'refund'
-        refund_params
-      when 'reversal'
-        reversal_params
-      end
-    )
+    params.permit(common_params, send("#{params[:transaction_type]}_params"))
   end
 
   def common_params
