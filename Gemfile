@@ -77,6 +77,8 @@ group :development, :test do
   gem "rubocop-rspec", require: false
   gem "rubycritic", require: false
   gem "pry-byebug"
+  gem "capybara"
+  gem 'webdrivers'
 end
 
 gem "cssbundling-rails", "~> 1.3"
