@@ -19,7 +19,7 @@
         <td><%= transaction.merchant.name %></td>
         <td><%= transaction.status %></td>
         <td><%= transaction.customer_email %></td>
-        <td><%= transaction.payment.amount %></td>
+        <td><%= transaction.try(:payment).try(:amount) %></td>
       </tr>
     <% end %>
   </tbody>

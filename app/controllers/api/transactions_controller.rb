@@ -3,9 +3,7 @@ class Api::TransactionsController < ApplicationController
 
   def create
     transaction_type = "#{params[:transaction_type]}_transaction".to_sym
-    transaction_params = transaction_params
     service_class = "Create#{params[:transaction_type].to_s.camelize}TransactionService".constantize
-
     result = service_class.call(transaction_params: transaction_params, transaction_type: transaction_type)
 
     if result.success?
@@ -29,7 +27,7 @@ class Api::TransactionsController < ApplicationController
     token == Rails.application.config.api_settings['api_token']
   end
 
-  def transaction_params_method
+  def transaction_params
     params.permit(common_params, send("#{params[:transaction_type]}_params"))
   end
 

@@ -8,7 +8,7 @@ class ChargeTransaction < Transaction
 
   validates :status, presence: true, inclusion: { in: PERMITTED_STATUSES }
   # validates :payment, presence: true
-  validate :validate_amount_within_authoeized_limit, on: :create, if: -> { reference_transaction.present? && payment.present? }
+  validate :validate_amount_within_authorized_limit, on: :create, if: -> { reference_transaction.present? && txn_amount.present? }
 
   # after_commit :create_payment, on: :create, if: -> { !payment.present? && txn_amount.present? }
 
@@ -27,17 +27,16 @@ class ChargeTransaction < Transaction
     %w[approved]
   end
 
-  def validate_amount_within_authoeized_limit
+  def validate_amount_within_authorized_limit
     authorized_amount = reference_transaction.amount
     current_approved_charge_transaction = reference_transaction.child_charge_transactions.approved
-    current_charged_amount = Payment.where(
-      monetizable_type: 'Transaction',
-      monetizable_id: current_approved_charge_transaction.ids
-    ).pluck(:amount).sum
+    
+    current_charged_amount = Payment.where(monetizable_type: 'Transaction', monetizable_id: current_approved_charge_transaction.ids).pluck(:amount).sum
 
-    return if self.amount <= (authorized_amount - current_charged_amount)
+    return if self.txn_amount <= (authorized_amount - current_charged_amount)
 
     errors.add(:base, 'Amount exceeding the authorized amount')
+    return false
   end
 
   private

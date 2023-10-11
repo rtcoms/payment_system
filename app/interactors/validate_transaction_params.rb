@@ -5,6 +5,7 @@ class ValidateTransactionParams
     transaction_params = context.transaction_params
     context.form = send("#{context.transaction_type}_form")    
     
+
     unless context.form.validate(transaction_params)
       context.fail!(message: context.form.errors.full_messages.join(', '))
     end
