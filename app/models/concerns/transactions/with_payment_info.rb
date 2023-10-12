@@ -4,7 +4,7 @@ module Transactions
     extend ActiveSupport::Concern
 
     included do
-      after_commit :create_payment, on: :create, if: -> { !payment.present? && txn_amount.present? }
+      after_commit :create_payment, on: :create, if: -> {  (payment.present? && payment.amount == 0) || (!payment.present? && txn_amount.present?) }
     end
 
     private

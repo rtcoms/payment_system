@@ -12,7 +12,7 @@ RSpec.describe AuthorizeTransaction, type: :model do
   it { should_not allow_value('invalid_email').for(:customer_email) }
   it { should validate_presence_of(:merchant) }
 
-  it { should have_one(:payment).dependent(:destroy).required }
+  it { should have_one(:payment).dependent(:destroy).optional }
 
   describe 'validations' do
     context 'permitted statuses' do

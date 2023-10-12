@@ -33,10 +33,11 @@ RSpec.describe ChargeTransaction, type: :model do
   describe 'validate_amount_within_authoeized_limit' do
     context 'when the charged amount is within the authorized limit' do
       let!(:merchant) { create(:merchant) }
-      let!(:authorize_transaction) { create(:authorize_transaction, amount: 100) }
-      let!(:charge_transaction) { create(:charge_transaction, reference_transaction: authorize_transaction, amount: 50) }
+      let!(:authorize_transaction) { create(:authorize_transaction, txn_amount: 100) }
+      let!(:charge_transaction) { create(:charge_transaction, reference_transaction: authorize_transaction, txn_amount: 50) }
 
       it 'passes validation' do
+        authorize_transaction.reload
         charge_transaction.valid?
         expect(charge_transaction.errors[:base]).to be_empty
       end
@@ -44,14 +45,15 @@ RSpec.describe ChargeTransaction, type: :model do
 
     context 'when the charged amount exceeds the authorized limit' do
       let!(:merchant) { create(:merchant) }
-      let!(:authorize_transaction) { create(:authorize_transaction, amount: 100) }
-      let!(:charge_transaction1) { create(:charge_transaction, reference_transaction: authorize_transaction, amount: 25) }
-      let!(:charge_transaction2) { create(:charge_transaction, reference_transaction: authorize_transaction, amount: 25) }
+      let!(:authorize_transaction2) { create(:authorize_transaction, txn_amount: 100) }
+      let!(:charge_transaction1) { create(:charge_transaction, reference_transaction: authorize_transaction2, txn_amount: 25) }
+      let!(:charge_transaction2) { create(:charge_transaction, reference_transaction: authorize_transaction2, txn_amount: 25) }
+      # let!(:invalid_charge_txn) { create(:charge_transaction, reference_transaction: authorize_transaction2, txn_amount: 60) }
 
       it 'fails validation' do
-        invalid_charge_txn = build(:charge_transaction, reference_transaction: authorize_transaction, amount: 60)
-
-        invalid_charge_txn.valid?
+        # authorize_transaction2.reload
+        invalid_charge_txn = build(:charge_transaction, reference_transaction: authorize_transaction2, txn_amount: 60)
+        invalid_charge_txn.save
 
         expect(invalid_charge_txn.errors[:base]).to include('Amount exceeding the authorized amount')
       end

@@ -6,18 +6,19 @@ FactoryBot.define do
     customer_email { 'customer@example.com' }
 
     transient do
-      amount { 100.00 }
+      txn_amount { 100.00 }
     end
 
     association :merchant, factory: :merchant
 
     after(:build) do |transaction, eval|
-      transaction.payment = build(:payment, amount: eval.amount, monetizable: transaction)
+      transaction.txn_amount = eval.txn_amount
+      transaction.payment = build(:payment, amount: eval.txn_amount, monetizable: transaction)
     end
   
-    after(:create) do |transaction|
-      transaction.payment.save!
-    end
+    # after(:create) do |transaction|
+    #   transaction.payment.save!
+    # end
   end
 
   factory :authorize_transaction, parent: :transaction, class: 'AuthorizeTransaction' do

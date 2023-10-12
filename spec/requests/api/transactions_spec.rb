@@ -41,7 +41,7 @@ RSpec.describe "Api::Transactions", type: :request do
 
       context 'when creating a ChargeTransaction' do
         before do
-          @authorize_transaction = create(:authorize_transaction, amount: 100, merchant: @active_merchant)
+          @authorize_transaction = create(:authorize_transaction, txn_amount: 100, merchant: @active_merchant)
         end
 
         let(:valid_charge_params) do
@@ -69,7 +69,7 @@ RSpec.describe "Api::Transactions", type: :request do
       context 'when creating a RefundTransaction' do
         before do
           @active_merchant_with_balance = create(:merchant, status: :active, total_transaction_sum: 50)
-          @charge_transaction = create(:charge_transaction, amount: 50, merchant: @active_merchant_with_balance)
+          @charge_transaction = create(:charge_transaction, txn_amount: 50, merchant: @active_merchant_with_balance)
         end
 
         let(:valid_refund_params) do
@@ -97,8 +97,8 @@ RSpec.describe "Api::Transactions", type: :request do
       context 'when creating a ReversalTransaction' do
         before do
           @active_merchant_with_balance = create(:merchant, status: :active, total_transaction_sum: 50)
-          @authorize_transaction = create(:authorize_transaction, amount: 100, merchant: @active_merchant_with_balance)
-          @charge_transaction = create(:charge_transaction, amount: 50, merchant: @active_merchant_with_balance)
+          @authorize_transaction = create(:authorize_transaction, txn_amount: 100, merchant: @active_merchant_with_balance)
+          @charge_transaction = create(:charge_transaction, txn_amount: 50, merchant: @active_merchant_with_balance)
         end
 
         let(:valid_reversal_params) do
