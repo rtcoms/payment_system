@@ -1,5 +1,3 @@
-require_relative './controller_concerns/transaction_processor.rb'
-
 class TransactionsController < ApplicationController
   include TransactionProcessor
 

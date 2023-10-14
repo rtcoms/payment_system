@@ -79,6 +79,7 @@ group :development, :test do
   gem "pry-byebug"
   gem "capybara"
   gem 'webdrivers'
+  gem 'rails-erd'
 end
 
 gem "cssbundling-rails", "~> 1.3"
