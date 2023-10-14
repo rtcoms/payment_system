@@ -96,6 +96,8 @@ related payment transactions
   * AuthorizeTransation < Transaction, hargeTransaction < Transaction, RefundTransation < Transaction, ReversalTransaction < Transaction
 * Polymorphic associations
   * Merchant and Transaction both are associate with Payment as Monetizable and Payment belongs to monetizable
+  * (User - Role) and (Transaction - Payment) - Both were not very ideal of polymorphic relation ship
+  * Used (Transaction - Payment) - because in payment system there is aconcept of ledger and so here payments table may work as ledger 
 * Scopes
   * Merchant and Transaction both have enum fileds which generate scope automatically
   * ```Merchant.active```, ```Merchant.inactive```
@@ -132,8 +134,7 @@ related payment transactions
   * Implemented using goodjob gem
   * ```TransactionCleanerJob``` - cleans old transaction every hour
 * Soft delete
-  * Transactions are soft deleted by ```TransactionCleanerJob```
-* 
+  * Transactions are soft deleted by ```TransactionCleanerJob``` 
 
 
 
