@@ -1,6 +1,9 @@
 class Merchant < User
 
   has_many :transactions
+  has_one :api_token, dependent: :destroy
+
+  after_create :setup_api_token
 
   def total_charges_collected
     approved_authorize_transactions = transactions.approved.where(transaction_type: 'AuthorizeTransaction')
@@ -13,5 +16,11 @@ class Merchant < User
 
   def recalculate_total_charges_collected
     update!(total_transaction_sum: total_charges_collected)
+  end
+
+  private
+
+  def setup_api_token
+    ApiToken.create!(merchant: self)
   end
 end

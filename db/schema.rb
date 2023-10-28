@@ -10,14 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_10_09_071251) do
+ActiveRecord::Schema[7.1].define(version: 2023_10_28_092058) do
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pgcrypto"
   enable_extension "plpgsql"
 
   # Custom types defined in this database.
   # Note that some types may not work with other database engines. Be careful if changing database.
   create_enum "transaction_status", ["approved", "reversed", "refunded", "error"]
   create_enum "user_status", ["active", "inactive"]
+
+  create_table "api_tokens", force: :cascade do |t|
+    t.integer "merchant_id", null: false
+    t.uuid "token", default: -> { "gen_random_uuid()" }, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["merchant_id"], name: "index_api_tokens_on_merchant_id", unique: true
+    t.index ["token"], name: "index_api_tokens_on_token", unique: true
+  end
 
   create_table "good_job_batches", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.datetime "created_at", null: false

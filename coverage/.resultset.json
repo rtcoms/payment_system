@@ -39,7 +39,7 @@
         "lines": [
           1,
           1,
-          315,
+          320,
           9,
           null,
           null,
@@ -261,6 +261,16 @@
           null
         ]
       },
+      "/home/rtcoms/work/payment_system/app/models/api_token.rb": {
+        "lines": [
+          1,
+          1,
+          null,
+          1,
+          1,
+          null
+        ]
+      },
       "/home/rtcoms/work/payment_system/app/models/authorize_transaction.rb": {
         "lines": [
           1,
@@ -444,6 +454,9 @@
           1,
           null,
           1,
+          1,
+          null,
+          1,
           null,
           1,
           15,
@@ -456,6 +469,12 @@
           null,
           1,
           15,
+          null,
+          null,
+          1,
+          null,
+          1,
+          141,
           null,
           null
         ]
@@ -885,6 +904,6 @@
         }
       }
     },
-    "timestamp": 1697273713
+    "timestamp": 1698498946
   }
 }
