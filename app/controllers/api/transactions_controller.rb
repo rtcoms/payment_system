@@ -1,5 +1,5 @@
 class Api::TransactionsController < ApplicationController
-  before_action :authenticate_request
+  before_action :authorize_merchant_token
 
   def create
     transaction_type = "#{params[:transaction_type]}_transaction".to_sym
@@ -15,16 +15,15 @@ class Api::TransactionsController < ApplicationController
 
   private
 
-  def authenticate_request
+  def authorize_merchant_token
     token = request.headers['Authorization']&.split(' ')&.last
-    
-    unless valid_token?(token)
-      render json: { error: 'Unauthorized' }, status: :unauthorized
-    end
+    ApiToken.find_sole_by(token:, merchant: current_merchant)
+  rescue ActiveRecord::RecordNotFound
+    render json: { error: 'Unauthorized - Invalid merchant ID or api token' }, status: :unauthorized
   end
 
-  def valid_token?(token)
-    token == Rails.application.config.api_settings['api_token']
+  def current_merchant
+    @current_merchant ||= Merchant.find(params[:merchant_id])
   end
 
   def transaction_params

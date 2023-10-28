@@ -33,7 +33,7 @@ RSpec.describe 'Payment system' do
   describe 'Display home page' do
     before do
       @headers = {
-        'Authorization' => "Bearer #{api_token}",
+        'Authorization' => "Bearer #{active_merchant.api_token.token}",
         'Content-Type' => 'application/json'
       }
 

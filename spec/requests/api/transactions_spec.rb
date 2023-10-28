@@ -4,7 +4,7 @@ RSpec.describe "Api::Transactions", type: :request do
   let(:api_token) { Rails.application.config.api_settings['api_token'] } # Replace with your actual API token
 
   before do
-    @active_merchant = create(:merchant, status: :active )
+    @active_merchant = create(:merchant, status: :active)
     @inactive_merchant = create(:merchant, status: :inactive)
   end
 
@@ -12,7 +12,7 @@ RSpec.describe "Api::Transactions", type: :request do
     context 'with valid API token' do
       before do
         @headers = {
-          'Authorization' => "Bearer #{api_token}",
+          'Authorization' => "Bearer #{@active_merchant.api_token.token}",
           'Content-Type' => 'application/json'
         }
       end
@@ -70,6 +70,10 @@ RSpec.describe "Api::Transactions", type: :request do
         before do
           @active_merchant_with_balance = create(:merchant, status: :active, total_transaction_sum: 50)
           @charge_transaction = create(:charge_transaction, txn_amount: 50, merchant: @active_merchant_with_balance)
+          @headers = {
+            'Authorization' => "Bearer #{@active_merchant_with_balance.api_token.token}",
+            'Content-Type' => 'application/json'
+          }
         end
 
         let(:valid_refund_params) do
@@ -99,6 +103,10 @@ RSpec.describe "Api::Transactions", type: :request do
           @active_merchant_with_balance = create(:merchant, status: :active, total_transaction_sum: 50)
           @authorize_transaction = create(:authorize_transaction, txn_amount: 100, merchant: @active_merchant_with_balance)
           @charge_transaction = create(:charge_transaction, txn_amount: 50, merchant: @active_merchant_with_balance)
+          @headers = {
+            'Authorization' => "Bearer #{@active_merchant_with_balance.api_token.token}",
+            'Content-Type' => 'application/json'
+          }
         end
 
         let(:valid_reversal_params) do
@@ -132,7 +140,7 @@ RSpec.describe "Api::Transactions", type: :request do
           txn_amount: 100
         }
       end
-      
+
       it 'returns unauthorized status' do
         headers = { 'Authorization' => 'Bearer invalid_token', 'Content-Type' => 'application/json' }
 
