@@ -1,7 +1,7 @@
 class AuthorizeTransaction < Transaction
   include Transactions::WithPaymentInfo
   
-  PERMITTED_STATUSES = %w[approved refunded reversed].freeze
+  PERMITTED_STATUSES = %w[approved reversed].freeze
 
   has_one :payment, class_name: 'Payment', as: :monetizable, dependent: :destroy, required: false
 

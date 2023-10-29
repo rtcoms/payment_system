@@ -27,14 +27,15 @@ class ValidateTransactionParams
     "#{transaction_type.to_s.camelize}Form"
   end
 
-  [:authorize_transaction, :charge_transaction, :refund_transaction, :reversal_transaction].each do |payment_transaction_type|
-    define_method("#{payment_transaction_type}_form") do
-      form_class = Object.const_get form_class_name(payment_transaction_type)
+  Transaction::Type::ALL.each do |txn_type|
+    transaction_type = "#{txn_type}_transaction"
+    define_method("#{transaction_type}_form") do
+      form_class = Object.const_get form_class_name(transaction_type)
 
-      if payment_transaction_type == :authorize_transaction
-        form_class.new(Object.const_get(payment_transaction_type.to_s.camelize).new, payment: Payment.new)
+      if transaction_type == :authorize_transaction
+        form_class.new(Object.const_get(transaction_type.to_s.camelize).new, payment: Payment.new)
       else
-        form_class.new(Object.const_get(payment_transaction_type.to_s.camelize).new)
+        form_class.new(Object.const_get(transaction_type.to_s.camelize).new)
       end
     end
   end

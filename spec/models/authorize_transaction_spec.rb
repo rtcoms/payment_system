@@ -21,6 +21,11 @@ RSpec.describe AuthorizeTransaction, type: :model do
 
         expect(transaction).not_to be_valid
         expect(transaction.errors[:status]).to include('is not included in the list')
+
+        transaction = build(:authorize_transaction, status: 'refunded')
+
+        expect(transaction).not_to be_valid
+        expect(transaction.errors[:status]).to include('is not included in the list')
       end
     end
   end
