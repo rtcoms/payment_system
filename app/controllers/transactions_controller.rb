@@ -19,11 +19,8 @@ class TransactionsController < ApplicationController
     @transaction_params = params[@transaction_type]
 
     service_class = "Create#{params[:transaction_type].to_s.camelize}Service".constantize
-
     result = service_class.call(transaction_params: @transaction_params, transaction_type: @transaction_type)
-
     redirect_to transactions_path and return if result.success?
-      
     @form = result.form
     @merchants = Merchant.active.pluck(:id, :name)
     render :new
@@ -31,17 +28,8 @@ class TransactionsController < ApplicationController
 
   private
 
-  def authorize_transaction_params
-    params.require(:authorize_transaction).permit(
-      :merchant_id,
-      :customer_email,
-      :customer_phone,
-      payment: [:amount]
-    )
-  end
-
   def transaction_form
-    transaction_class = Object.const_get "#{@transaction_type}".camelize
+    transaction_class = Object.const_get @transaction_type.to_s.camelize
     transaction_form_class = Object.const_get "#{@transaction_type}_form".camelize
 
     transaction_form_class.new(transaction_class.new)
