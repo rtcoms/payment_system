@@ -16,7 +16,6 @@
           1,
           1,
           1,
-          1,
           null,
           1,
           1,
@@ -40,7 +39,7 @@
           1,
           1,
           321,
-          9,
+          14,
           null,
           null,
           null
@@ -449,8 +448,9 @@
       "/home/rtcoms/work/payment_system/app/models/merchant.rb": {
         "lines": [
           1,
-          null,
           1,
+          1,
+          null,
           1,
           null,
           1,
@@ -845,6 +845,6 @@
         }
       }
     },
-    "timestamp": 1698599700
+    "timestamp": 1698599818
   }
 }

@@ -10,7 +10,6 @@ class User < ApplicationRecord
   validates :encrypted_password, presence: true
   validates :name, presence: { allow_nil: false}
   validates :status, presence: true, inclusion: { in: statuses.keys }
-  validates :total_transaction_sum, presence: true, numericality: { greater_than_or_equal_to: 0 }
   validates :email, presence: true, uniqueness: { case_sensitive: false }, email: true
 
   def self.create_merchant(user_attributes)

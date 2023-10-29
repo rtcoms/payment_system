@@ -1,7 +1,8 @@
 class Merchant < User
-
   has_many :transactions
   has_one :api_token, dependent: :destroy
+
+  validates :total_transaction_sum, presence: true, numericality: { greater_than_or_equal_to: 0 }
 
   after_create :setup_api_token
 
