@@ -5,11 +5,15 @@ Rails.application.routes.draw do
 
   devise_for :users
   resources :merchants
-  resources :transactions, only: [:index, :new, :create], path_names: {new: 'new/:transaction_type', create: 'new/:transaction_type' }
+  resources :transactions, only: [:index, :new, :create],
+                           path_names: { new: 'new/:transaction_type', create: 'new/:transaction_type' },
+                           constraints: { transaction_type: %r{(authorize|charge|refund|reversal)} }
   get 'pages/home'
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   namespace :api do
-    post 'transactions/:transaction_type', to: 'transactions#create'
+    post 'transactions/:transaction_type', to: 'transactions#create',
+                                           constraints: { transaction_type: %r{(authorize|charge|refund|reversal)} }
   end
+
+  match '*unmatched', to: 'application#route_not_found', via: :all
 end

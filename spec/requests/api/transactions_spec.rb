@@ -149,5 +149,23 @@ RSpec.describe "Api::Transactions", type: :request do
         expect(response).to have_http_status(:unauthorized)
       end
     end
+
+    context 'with invalid transaction type' do
+      let(:valid_authorize_params) do
+        {
+          merchant_id: @active_merchant.id,
+          customer_email: 'test@example.com',
+          customer_phone: '1234567890',
+          txn_amount: 100
+        }
+      end
+
+      it 'returns error 404' do
+        headers = { 'Authorization' => "Bearer #{@active_merchant.api_token.token}", 'Content-Type' => 'application/json' }
+
+        post '/api/transactions/invalid_transaction_type', params: valid_authorize_params.to_json, headers: headers
+        expect(response).to have_http_status(:not_found)
+      end
+    end
   end
 end

@@ -1,5 +1,13 @@
 class Transaction < ApplicationRecord
   include Discard::Model
+  class Type
+    CHARGE = 'charge'.freeze
+    REFUND = 'refund'.freeze
+    AUTHORIZE = 'authorize'.freeze
+    REVERSAL = 'reversal'.freeze
+
+    ALL = [AUTHORIZE, CHARGE, REFUND, REVERSAL].freeze
+  end
   
   self.inheritance_column = :transaction_type
   attr_accessor :txn_amount
