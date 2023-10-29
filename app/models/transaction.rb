@@ -15,7 +15,6 @@ class Transaction < ApplicationRecord
   enum status: { approved: 'approved', reversed: 'reversed', refunded: 'refunded', error: 'error' }
 
   belongs_to :merchant
-  belongs_to :reference_transaction, class_name: 'Transaction', optional: true
   has_many :child_transactions, class_name: 'Transaction', foreign_key: 'reference_transaction_id'
   has_many :child_charge_transactions, -> { where(transaction_type: 'ChargeTransaction') }, class_name: 'Transaction', foreign_key: 'reference_transaction_id'
 
@@ -28,7 +27,6 @@ class Transaction < ApplicationRecord
   validates :merchant, presence: true
 
   before_validation :generate_uuid, on: :create
-  before_validation :set_merchant, on: :create, if: -> { !merchant.present? && reference_transaction.present? }
 
   delegate :amount, to: :payment
 
@@ -39,7 +37,5 @@ class Transaction < ApplicationRecord
     self.uuid ||= SecureRandom.uuid
   end
 
-  def set_merchant
-    self.merchant_id = reference_transaction.merchant_id
-  end
+  
 end

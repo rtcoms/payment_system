@@ -1,4 +1,3 @@
-# app/models/concerns/transactions/with_reference_transaction.rb
 module Transactions
   module WithPaymentInfo
     extend ActiveSupport::Concern

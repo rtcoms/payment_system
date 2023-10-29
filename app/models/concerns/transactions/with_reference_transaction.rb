@@ -9,7 +9,9 @@ module Transactions
       validates :reference_transaction, presence: true
       validate :validate_reference_transaction, if: -> { reference_transaction.present? }
       # validate :validate_reference_transaction_approved, on: :create, if: -> { reference_transaction.present? }
-      validate :valicate_reference_transaction_status, on: :create, if: -> { reference_transaction.present? }
+      validate :validate_reference_transaction_status, on: :create, if: -> { reference_transaction.present? }
+
+      before_validation :set_merchant, on: :create, if: -> { !merchant.present? && reference_transaction.present? }
     end
 
     private
@@ -20,7 +22,7 @@ module Transactions
       errors.add(:reference_transaction, "must be of type #{reference_transaction.valid_reference_transaction_type}")
     end
 
-    def valicate_reference_transaction_status
+    def validate_reference_transaction_status
       return if valid_statuses_for_reference_transaction.include?(reference_transaction.status)
 
       errors.add(:reference_transaction, "must be approved or refunded")
@@ -39,6 +41,10 @@ module Transactions
     def valid_statuses_for_reference_transaction
       # Transaction.statuses[:approved]
       raise NotImplementedError, 'Subclasses must implement valid_statuses_for_reference_transaction?'
+    end
+
+    def set_merchant
+      self.merchant_id = reference_transaction.merchant_id
     end
   end
 end
