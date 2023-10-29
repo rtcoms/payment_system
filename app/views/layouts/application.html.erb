@@ -39,12 +39,6 @@
               Transactions
             <% end %>
           </ul>
-          <ul class="navbar-nav me-auto">
-            <%= link_to new_transaction_path(transaction_type: :authorize), class: "nav-link #{'active fw-bold' if current_page?(new_transaction_path(transaction_type: :authorize))}" do %>
-              <div class="fa fa-home"></div>
-              New Authorize Transaction
-            <% end %>
-          </ul>
           <ul class="navbar-nav ms-auto">
             <% if current_user %>
               <li class="nav-item dropdown">

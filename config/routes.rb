@@ -5,9 +5,7 @@ Rails.application.routes.draw do
 
   devise_for :users
   resources :merchants
-  resources :transactions, only: [:index, :new, :create],
-                           path_names: { new: 'new/:transaction_type', create: 'new/:transaction_type' },
-                           constraints: { transaction_type: %r{(authorize|charge|refund|reversal)} }
+  resources :transactions, only: [:index]
   get 'pages/home'
 
   namespace :api do
