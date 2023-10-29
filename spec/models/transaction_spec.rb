@@ -7,8 +7,8 @@ RSpec.describe Transaction, type: :model do
   describe 'associations' do
     it { should belong_to(:merchant) }
     # it { should belong_to(:reference_transaction).class_name('Transaction').optional }
-    it { should have_many(:child_transactions).class_name('Transaction').with_foreign_key('reference_transaction_id') }
-    it { should have_one(:payment).dependent(:destroy).optional }
+    # it { should have_many(:child_transactions).class_name('Transaction').with_foreign_key('reference_transaction_id') }
+    # it { should have_one(:payment).dependent(:destroy).optional }
   end
 
   describe 'validations' do
@@ -37,7 +37,6 @@ RSpec.describe Transaction, type: :model do
       charge_transaction2 = create(:charge_transaction, reference_transaction: authorize_transaction, txn_amount: 2)
       refund_transaction = create(:refund_transaction, reference_transaction: charge_transaction1, txn_amount: charge_transaction1.amount)
 
-      # expect(authorize_transaction.reference_transaction).to eq(nil)
       expect(charge_transaction1.reference_transaction).to eq(authorize_transaction)
       expect(charge_transaction2.reference_transaction).to eq(authorize_transaction)
       expect(refund_transaction.reference_transaction).to eq(charge_transaction1)
@@ -45,7 +44,6 @@ RSpec.describe Transaction, type: :model do
       expect(authorize_transaction.child_transactions).to match([charge_transaction1, charge_transaction2])
       expect(charge_transaction1.child_transactions).to match([refund_transaction])
       expect(charge_transaction2.child_transactions).to match([])
-      expect(refund_transaction.child_transactions).to match([])
     end
   end
 end

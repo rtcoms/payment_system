@@ -15,10 +15,6 @@ class Transaction < ApplicationRecord
   enum status: { approved: 'approved', reversed: 'reversed', refunded: 'refunded', error: 'error' }
 
   belongs_to :merchant
-  has_many :child_transactions, class_name: 'Transaction', foreign_key: 'reference_transaction_id'
-  has_many :child_charge_transactions, -> { where(transaction_type: 'ChargeTransaction') }, class_name: 'Transaction', foreign_key: 'reference_transaction_id'
-
-  has_one :payment, class_name: 'Payment', as: :monetizable, dependent: :destroy, inverse_of: :monetizable
 
   validates :uuid, presence: true, uniqueness: { case_sensitive: false }
   validates :transaction_type, presence: true

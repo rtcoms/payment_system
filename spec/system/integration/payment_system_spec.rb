@@ -49,36 +49,30 @@ RSpec.describe 'Payment system' do
       end
 
       visit merchant_path(active_merchant)
-      
+
       # Make it a reuseable sign_in method
       fill_in('Email', with: admin.email); fill_in('Password', with: 'password'); click_button('commit')
 
 
-      expect(page).to have_content("Total transaction sum: 300.0")
-      
+      expect(page).to have_content('Total transaction sum: 300.0')
 
       post('/api/transactions/refund', params: { reference_transaction_id: ChargeTransaction.last.id, merchant_id: active_merchant.id, customer_email: 'customer@example.com', txn_amount: 100 }.to_json, headers: @headers)
       visit merchant_path(active_merchant)
-      expect(page).to have_content("Total transaction sum: 200.0")
+      expect(page).to have_content('Total transaction sum: 200.0')
 
       post('/api/transactions/charge', params: { reference_transaction_id: @authorize_txn_2.id, merchant_id: active_merchant.id, customer_email: 'customer@example.com', txn_amount: 100 }.to_json, headers: @headers)
       visit merchant_path(active_merchant)
-      expect(page).to have_content("Total transaction sum: 300.0")
+      expect(page).to have_content('Total transaction sum: 300.0')
 
       post('/api/transactions/charge', params: { reference_transaction_id: @authorize_txn_2.id, merchant_id: active_merchant.id, customer_email: 'customer@example.com', txn_amount: 100 }.to_json, headers: @headers)
       visit merchant_path(active_merchant)
-      expect(page).to have_content("Total transaction sum: 300.0")
+      expect(page).to have_content('Total transaction sum: 300.0')
 
       post('/api/transactions/reversal', params: { reference_transaction_id: @authorize_txn_1.id, merchant_id: active_merchant.id, customer_email: 'customer@example.com' }.to_json, headers: @headers)
       visit merchant_path(active_merchant)
-      expect(page).to have_content("Total transaction sum: 100.0")
+      expect(page).to have_content('Total transaction sum: 100.0')
 
-      
-      
       visit transactions_path
-    
-
-
     end
 
     it 'should have payment system brand name' do

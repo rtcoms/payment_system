@@ -5,7 +5,6 @@ RSpec.describe ReversalTransaction, type: :model do
   subject { build(:reversal_transaction) }
 
   it { should belong_to(:merchant) }
-  it { should have_one(:payment).dependent(:destroy) }
   
   it_behaves_like 'validate_reference_transaction'
 

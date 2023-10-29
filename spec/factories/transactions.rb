@@ -13,7 +13,7 @@ FactoryBot.define do
 
     after(:build) do |transaction, eval|
       transaction.txn_amount = eval.txn_amount
-      transaction.payment = build(:payment, amount: eval.txn_amount, monetizable: transaction)
+      transaction.payment = build(:payment, amount: eval.txn_amount, monetizable: transaction) if transaction.respond_to?(:payment)
     end
   
     # after(:create) do |transaction|
