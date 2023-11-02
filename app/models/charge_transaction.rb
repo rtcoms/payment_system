@@ -25,6 +25,9 @@
 # @!attribute discarded_at
 #   @return [Time]
 #
+# Charge Transaction is created with default status approved for an approved AuthorizeTransaction it the sum of amount of all approved charge transactions
+# associated with  a authorize transaction must be <= authorized amount. When a RefundTransaction is created for ChargETransaction 
+# its status is changed ti 'refunded'
 class ChargeTransaction < Transaction
   include Transactions::WithReferenceTransaction
   include Transactions::WithPaymentInfo
@@ -43,15 +46,17 @@ class ChargeTransaction < Transaction
     reference_transaction.is_a?(valid_reference_transaction_type)
   end
 
+  # ChargeTransaction can only be create in reference with an AuthorizeTransaction
   def valid_reference_transaction_type
     AuthorizeTransaction
   end
 
+  # ChargeTransaction can only be created for an approved AuthorizeTransaction
   def valid_statuses_for_reference_transaction
-    # AuthorizeTransaction would be reference transction here
     %w[approved]
   end
 
+  # Validates that sum of Charged amount for an authorize transaction must be <= authorized amount
   def validate_amount_within_authorized_limit
     authorized_amount = reference_transaction.amount
     current_approved_charge_transaction = reference_transaction.child_charge_transactions.approved

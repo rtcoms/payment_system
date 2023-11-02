@@ -1,3 +1,4 @@
+# Service to recalculate valid amount collected for a merchant
 class RecalculateMerchantAmount
   include Interactor
 

@@ -25,6 +25,7 @@
 # @!attribute discarded_at
 #   @return [Time]
 #
+# A Refund transaction is created for a ChargeTransaction to mark ChargeTransaction as refunded
 class RefundTransaction < Transaction
   include Transactions::WithReferenceTransaction
   include Transactions::WithPaymentInfo
@@ -41,16 +42,18 @@ class RefundTransaction < Transaction
     reference_transaction.is_a?(valid_reference_transaction_type)
   end
 
+  # RefundTransaction can only be created for a ChargeTransaction
   def valid_reference_transaction_type
     ChargeTransaction
   end
 
+  # Refund transaction must be created only for an approved ChargeTransaction
   def valid_statuses_for_reference_transaction
-    # ChargeTransaction would be reference transactino here
     %w[approved]
   end
 
 
+  # Validates that amount or RefundTransaction matches ChargeTransaction amount
   def validate_amount_matches_with_reference_transaction
     return if self.amount == reference_transaction.amount
 

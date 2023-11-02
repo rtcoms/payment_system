@@ -38,6 +38,7 @@ class ReversalTransaction < Transaction
     reference_transaction.is_a?(valid_reference_transaction_type)
   end
 
+  # Reversal transaction must be created only for AuthorizeTransaction
   def valid_reference_transaction_type
     AuthorizeTransaction
   end

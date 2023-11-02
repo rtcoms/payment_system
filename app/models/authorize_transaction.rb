@@ -25,9 +25,12 @@
 # @!attribute discarded_at
 #   @return [Time]
 #
+# AuthorizeTransaction contains inormation about the total amount a customer can be charged. It has many child charge transaction
+# and the totl sum of the charge transactions must be <= authorize transaction amount
 class AuthorizeTransaction < Transaction
   include Transactions::WithPaymentInfo
   
+  # Authorize transaction can only have approved and reversed statuses
   PERMITTED_STATUSES = %w[approved reversed].freeze
 
   has_one :payment, class_name: 'Payment', as: :monetizable, dependent: :destroy, required: false

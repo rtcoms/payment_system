@@ -1,4 +1,6 @@
-# app/models/concerns/transactions/with_reference_transaction.rb
+# This module provide association with reference_transaction and validation of 
+# reference transaction type and status
+
 module Transactions
   module WithReferenceTransaction
     extend ActiveSupport::Concern
@@ -8,7 +10,6 @@ module Transactions
 
       validates :reference_transaction, presence: true
       validate :validate_reference_transaction, if: -> { reference_transaction.present? }
-      # validate :validate_reference_transaction_approved, on: :create, if: -> { reference_transaction.present? }
       validate :validate_reference_transaction_status, on: :create, if: -> { reference_transaction.present? }
 
       before_validation :set_merchant, on: :create, if: -> { merchant.blank? && reference_transaction.present? }
@@ -29,8 +30,6 @@ module Transactions
     end
 
     def valid_reference_transaction?
-      # Implement the logic to check if the reference_transaction is valid
-      # for the specific transaction type in each child class
       raise NotImplementedError, 'Subclasses must implement valid_reference_transaction?'
     end
 
@@ -39,10 +38,10 @@ module Transactions
     end
 
     def valid_statuses_for_reference_transaction
-      # Transaction.statuses[:approved]
       raise NotImplementedError, 'Subclasses must implement valid_statuses_for_reference_transaction?'
     end
 
+    # Set merchant_id from reference transaction
     def set_merchant
       self.merchant_id = reference_transaction.merchant_id
     end

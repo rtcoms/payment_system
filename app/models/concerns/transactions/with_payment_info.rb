@@ -1,3 +1,6 @@
+# 
+# This module provide association and creation of payment for all the entities which have amount
+# associated with them.
 module Transactions
   module WithPaymentInfo
     extend ActiveSupport::Concern

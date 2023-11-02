@@ -1,3 +1,5 @@
+# Validator to validate presence of merchant and mismatch of merchant among associated
+# transaction
 class ValidateMerchant
   include Interactor
 
@@ -11,6 +13,7 @@ class ValidateMerchant
     context.fail!(message: 'Merchant is not active') unless merchant.active?
     context.fail!(message: 'Merchant and reference transaction mismatch') if reference_transaction.present? && reference_transaction.merchant_id != merchant_id
 
+    # Set merchant and reference transaction
     context.merchant = merchant
     context.reference_transaction = reference_transaction
   end

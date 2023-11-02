@@ -13,6 +13,7 @@
 # @!attribute updated_at
 #   @return [Time]
 #
+# Unique api token for each merchant
 class ApiToken < ApplicationRecord
   belongs_to :merchant
 

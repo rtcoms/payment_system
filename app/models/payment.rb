@@ -16,6 +16,7 @@
 #   @return [Time]
 #
 class Payment < ApplicationRecord
+  # monetizablecan either be a Transaction or Merchant User
   belongs_to :monetizable, polymorphic: true, touch: true
   validates :amount, presence: true, numericality: { greater_than: 0 }
   validates :monetizable, presence: true

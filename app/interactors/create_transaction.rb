@@ -1,13 +1,16 @@
+# Service to create transaction and update status of reference transaction
+# It uses respective form classes to create transaction
 class CreateTransaction
   include Interactor
 
   def call
     if context.form.save
-      #TODO: ideally this should be happening via state machine transition
       update_reference_transaction_status
     else
       model = context.form.model 
       if model.errors.full_messages.include?('Reference transaction must be approved or refunded')
+        # Mark transaction as erronous if reference transaction status is
+        # anything other than approved or refunded
         model.status = :error
         model.save(validate: false)
       end
