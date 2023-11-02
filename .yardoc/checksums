@@ -1,6 +1,6 @@
 app/models/user.rb 4c8a5f143aaceec7660b8a6ac7bfc89a7a72c365
 app/models/admin.rb 6876b0b474a9e64e23b6d89c84145399d4c519ce
-app/models/ability.rb b212f2b342be64081016b4c63b780a41ffb4d30a
+app/models/ability.rb 79c4d8792da5214678677dd70be10aa4a0e08a25
 app/models/payment.rb f6464c2d621d91cbb59b36b0dfc94fdb1f84fb33
 app/models/merchant.rb a52263e80c9a3bf16b6a3caf95091bfc9b8ae754
 app/models/api_token.rb 5df202f22ef494591ad7366c101980461a227876

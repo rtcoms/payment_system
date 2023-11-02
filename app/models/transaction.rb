@@ -56,7 +56,6 @@ class Transaction < ApplicationRecord
   private
 
   def generate_uuid
-    # TODO: This may generate duplicate uuid
     self.uuid ||= SecureRandom.uuid
   end
 

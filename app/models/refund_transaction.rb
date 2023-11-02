@@ -35,9 +35,6 @@ class RefundTransaction < Transaction
 
   validates :status, presence: true, inclusion: { in: PERMITTED_STATUSES }
   validate :validate_amount_matches_with_reference_transaction, if: -> { payment.present? && reference_transaction.present? }
-
-  # after_commit :create_payment, on: :create, if: -> { !payment.present? && txn_amount.present? }
-
   private
 
   def valid_reference_transaction?
@@ -53,9 +50,6 @@ class RefundTransaction < Transaction
     %w[approved]
   end
 
-  # def create_payment
-  #   Payment.create!(amount: txn_amount, monetizable: self)
-  # end
 
   def validate_amount_matches_with_reference_transaction
     return if self.amount == reference_transaction.amount

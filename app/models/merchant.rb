@@ -42,6 +42,7 @@ class Merchant < User
     ).pluck(:amount).sum
   end
 
+  # Update total_transaction_sum as per the all valid charge transaction amount
   def recalculate_total_charges_collected
     update!(total_transaction_sum: total_charges_collected)
   end
