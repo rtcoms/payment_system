@@ -161,7 +161,7 @@ RSpec.describe "Api::Transactions", type: :request do
       end
 
       it 'returns error 404' do
-        headers = { 'Authorization' => "Bearer #{@active_merchant.api_token.token}", 'Content-Type' => 'application/json' }
+        headers = { 'Authorization' => "Bearer #{ @active_merchant.api_token.token}", 'Content-Type' => 'application/json' }
 
         post '/api/transactions/invalid_transaction_type', params: valid_authorize_params.to_json, headers: headers
         expect(response).to have_http_status(:not_found)

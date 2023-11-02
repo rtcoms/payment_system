@@ -11,7 +11,7 @@ module Transactions
       # validate :validate_reference_transaction_approved, on: :create, if: -> { reference_transaction.present? }
       validate :validate_reference_transaction_status, on: :create, if: -> { reference_transaction.present? }
 
-      before_validation :set_merchant, on: :create, if: -> { !merchant.present? && reference_transaction.present? }
+      before_validation :set_merchant, on: :create, if: -> { merchant.blank? && reference_transaction.present? }
     end
 
     private
@@ -25,7 +25,7 @@ module Transactions
     def validate_reference_transaction_status
       return if valid_statuses_for_reference_transaction.include?(reference_transaction.status)
 
-      errors.add(:reference_transaction, "must be approved or refunded")
+      errors.add(:reference_transaction, 'must be approved or refunded')
     end
 
     def valid_reference_transaction?

@@ -304,4 +304,24 @@ RSpec.describe '/merchants', type: :request do
       end
     end
   end
+
+  describe 'exception handling' do
+    before { sign_in admin_user }
+
+    describe 'GET #show' do
+      it 'handles RecordNotFound exception for GET request' do
+        get merchant_url(id: 'nonexistent_id')
+
+        expect(response).to have_http_status(:not_found)
+      end
+    end
+
+    describe 'POST #create' do
+      it 'handles ParameterMissing exception for POST request' do
+        post merchants_url, params: { merchant: invalid_attributes }
+
+        expect(response).to have_http_status(:unprocessable_entity)
+      end
+    end
+  end
 end
