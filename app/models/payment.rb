@@ -2,12 +2,18 @@
 #
 # Table name: payments
 #
-#  id               :bigint           not null, primary key
-#  amount           :decimal(, )
-#  monetizable_type :string           not null
-#  monetizable_id   :bigint           not null
-#  created_at       :datetime         not null
-#  updated_at       :datetime         not null
+# @!attribute id
+#   @return []
+# @!attribute amount
+#   @return []
+# @!attribute monetizable_type
+#   @return [String]
+# @!attribute monetizable_id
+#   @return []
+# @!attribute created_at
+#   @return [Time]
+# @!attribute updated_at
+#   @return [Time]
 #
 class Payment < ApplicationRecord
   belongs_to :monetizable, polymorphic: true, touch: true

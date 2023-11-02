@@ -2,11 +2,16 @@
 #
 # Table name: api_tokens
 #
-#  id          :bigint           not null, primary key
-#  merchant_id :integer          not null
-#  token       :uuid             not null
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
+# @!attribute id
+#   @return []
+# @!attribute merchant_id
+#   @return [Integer]
+# @!attribute token
+#   @return [String]
+# @!attribute created_at
+#   @return [Time]
+# @!attribute updated_at
+#   @return [Time]
 #
 class ApiToken < ApplicationRecord
   belongs_to :merchant

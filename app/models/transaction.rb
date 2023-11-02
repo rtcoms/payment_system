@@ -2,17 +2,28 @@
 #
 # Table name: transactions
 #
-#  id                       :bigint           not null, primary key
-#  uuid                     :uuid             not null
-#  status                   :enum             default("approved"), not null
-#  customer_email           :string           not null
-#  customer_phone           :string
-#  merchant_id              :bigint           not null
-#  reference_transaction_id :bigint
-#  created_at               :datetime         not null
-#  updated_at               :datetime         not null
-#  transaction_type         :string           default("Transaction"), not null
-#  discarded_at             :datetime
+# @!attribute id
+#   @return []
+# @!attribute uuid
+#   @return [String]
+# @!attribute status
+#   @return []
+# @!attribute customer_email
+#   @return [String]
+# @!attribute customer_phone
+#   @return [String]
+# @!attribute merchant_id
+#   @return []
+# @!attribute reference_transaction_id
+#   @return []
+# @!attribute created_at
+#   @return [Time]
+# @!attribute updated_at
+#   @return [Time]
+# @!attribute transaction_type
+#   @return [String]
+# @!attribute discarded_at
+#   @return [Time]
 #
 class Transaction < ApplicationRecord
   include Discard::Model

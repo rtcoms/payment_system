@@ -2,17 +2,28 @@
 #
 # Table name: users
 #
-#  id                    :bigint           not null, primary key
-#  email                 :string           default(""), not null
-#  encrypted_password    :string           default(""), not null
-#  remember_created_at   :datetime
-#  created_at            :datetime         not null
-#  updated_at            :datetime         not null
-#  status                :enum             default("active"), not null
-#  name                  :string           not null
-#  description           :text
-#  total_transaction_sum :decimal(, )      default(0.0), not null
-#  user_type             :string           default("Merchant"), not null
+# @!attribute id
+#   @return []
+# @!attribute email
+#   @return [String]
+# @!attribute encrypted_password
+#   @return [String]
+# @!attribute remember_created_at
+#   @return [Time]
+# @!attribute created_at
+#   @return [Time]
+# @!attribute updated_at
+#   @return [Time]
+# @!attribute status
+#   @return []
+# @!attribute name
+#   @return [String]
+# @!attribute description
+#   @return [String]
+# @!attribute total_transaction_sum
+#   @return []
+# @!attribute user_type
+#   @return [String]
 #
 class User < ApplicationRecord
   # Include default devise modules. Others available are:

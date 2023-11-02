@@ -81,6 +81,7 @@ group :development, :test do
   gem 'webdrivers'
   gem 'rails-erd'
   gem 'annotate', git: 'https://github.com/ctran/annotate_models.git'
+  gem 'yard'
 end
 
 gem "cssbundling-rails", "~> 1.3"
