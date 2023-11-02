@@ -38,12 +38,15 @@ RSpec.describe 'Payment system' do
       }
 
       # create authorization transaction using api /transactions/authorize
+      # Authorize transaction of 300
       post '/api/transactions/authorize', params: authorize1_txn_params.to_json, headers: @headers
+      # Authorize transaction of 100
       post '/api/transactions/authorize', params: authorize2_txn_params.to_json, headers: @headers
 
       @authorize_txn_1 = AuthorizeTransaction.first
       @authorize_txn_2 = AuthorizeTransaction.last
 
+      # 3 Charge transaction of 100 for authorize transaction 1
       3.times do
         post('/api/transactions/charge', params: { reference_transaction_id: @authorize_txn_1.id, merchant_id: active_merchant.id, customer_email: 'customer@example.com', txn_amount: 100 }.to_json, headers: @headers)
       end
@@ -56,18 +59,22 @@ RSpec.describe 'Payment system' do
 
       expect(page).to have_content('Total transaction sum: 300.0')
 
+      # Refund a charge transaction of 100 for authorize transaction 1
       post('/api/transactions/refund', params: { reference_transaction_id: ChargeTransaction.last.id, merchant_id: active_merchant.id, customer_email: 'customer@example.com', txn_amount: 100 }.to_json, headers: @headers)
       visit merchant_path(active_merchant)
       expect(page).to have_content('Total transaction sum: 200.0')
 
+      # Create charge transaction of 100 for  authorize transaction 2 for same merchant
       post('/api/transactions/charge', params: { reference_transaction_id: @authorize_txn_2.id, merchant_id: active_merchant.id, customer_email: 'customer@example.com', txn_amount: 100 }.to_json, headers: @headers)
       visit merchant_path(active_merchant)
       expect(page).to have_content('Total transaction sum: 300.0')
 
+      # Charge transaction of 100 for  authorize transaction 2 for same merchant - result in error as limit is crossed
       post('/api/transactions/charge', params: { reference_transaction_id: @authorize_txn_2.id, merchant_id: active_merchant.id, customer_email: 'customer@example.com', txn_amount: 100 }.to_json, headers: @headers)
       visit merchant_path(active_merchant)
       expect(page).to have_content('Total transaction sum: 300.0')
 
+      # Reverse authorize transaction 1
       post('/api/transactions/reversal', params: { reference_transaction_id: @authorize_txn_1.id, merchant_id: active_merchant.id, customer_email: 'customer@example.com' }.to_json, headers: @headers)
       visit merchant_path(active_merchant)
       expect(page).to have_content('Total transaction sum: 100.0')
