@@ -47,14 +47,29 @@ Prefix Verb   URI Pattern                                                       
 
 ```
 
-* API Routes
+### API Routes
 
 ```
 api POST   /api/transactions/:transaction_type(.:format)
 ```
 
+* Sample API call
+
+If an active merchant with id:<ACTIVE_MERCHANT_ID> and token <MERCHANT_API_TOKEN>exists then api call to crete transaction would looke like this:
+
+```
+curl -X POST -H "Authorization: Bearer MERCHANT_API_TOKEN" -H "Content-Type: application/json" -d '{ "merchant_id": "ACTIVE_MERCHANT_ID", "customer_email": "test@example.com", "customer_phone": "1234567890", "txn_amount": 300 }' http://localhost:3000/api/transactions/authorize
+
+```
+
+* Sample api response
+
+```
+{"uuid":"c3c365f7-9cec-4f0b-b431-05e5a5800c1d","status":"approved","customer_email":"test@example.com","customer_phone":"1234567890","merchant_id":7,"reference_transaction_id":null,"transaction_type":"AuthorizeTransaction","created_at":"2023-11-02T22:09:08.544Z","updated_at":"2023-11-02T22:09:08.570Z","amount":300.0}
+```
+
 * API Token
-Set in `api_config.yml`
+Generated for every merchant on creation
 
 * Test cases
   * Implemented using rspec, shoulda matchers and capybara

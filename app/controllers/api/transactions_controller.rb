@@ -1,4 +1,4 @@
-class Api::TransactionsController < ApplicationController
+class Api::TransactionsController < Api::BaseApiController
   include TransactionProcessor
   before_action :authorize_merchant_token
 
@@ -8,7 +8,7 @@ class Api::TransactionsController < ApplicationController
     result = service_class.call(transaction_params:, transaction_type:)
 
     if result.success?
-      render json: result.form.model, status: :ok
+      render json: result.form.model.reload, serializer: TransactionSerializer, status: :ok
     else
       render json: { error: result.message }, status: :unprocessable_entity
     end

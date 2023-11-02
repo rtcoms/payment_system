@@ -4,9 +4,11 @@ class CreateTransaction
   include Interactor
 
   def call
+    # Create transaction
     if context.form.save
       update_reference_transaction_status
     else
+      # Create transaction
       model = context.form.model 
       if model.errors.full_messages.include?('Reference transaction must be approved or refunded')
         # Mark transaction as erronous if reference transaction status is
