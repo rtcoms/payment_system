@@ -27,6 +27,8 @@ module ExceptionHandler
     end
   end
 
+
+
   private
 
   def perform_redirect_on_error(exception)
@@ -37,7 +39,12 @@ module ExceptionHandler
     render json: { error: error_message }, status: :not_found if request.format.json?
   end
 
-  def exception_status_code(exception)\
+  # Return http status code for an exception
+  #
+  # @param exception [Exception] the exception object
+  # @return [Integer] the http status code.
+  # @!visibility private
+  def exception_status_code(exception)
     return 404 if ERRORS_404.include?(exception.class)
     return 400 if ERRORS_400.include?(exception.class)
 

@@ -26,8 +26,6 @@
 #   @return [String]
 #
 class User < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   self.inheritance_column = :user_type
 
   devise :database_authenticatable

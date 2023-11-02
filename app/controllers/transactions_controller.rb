@@ -1,5 +1,5 @@
 class TransactionsController < ApplicationController
-  # GET /transaction/transactions
+  # GET /transactions
   def index
     @transactions = Transaction.kept.includes(:merchant).order(:created_at)
 
