@@ -80,6 +80,7 @@ group :development, :test do
   gem "capybara"
   gem 'webdrivers'
   gem 'rails-erd'
+  gem 'annotate', git: 'https://github.com/ctran/annotate_models.git'
 end
 
 gem "cssbundling-rails", "~> 1.3"
